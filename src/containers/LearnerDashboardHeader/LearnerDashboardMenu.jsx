@@ -1,7 +1,4 @@
-import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { getConfig } from '@edx/frontend-platform';
-import { Badge } from '@openedx/paragon';
-import _ from 'lodash';
 
 import urls from 'data/services/lms/urls';
 
@@ -43,44 +40,9 @@ const getLearnerHeaderMenu = (
     },
   ],
   userMenu: [
-    ...(getConfig().ENABLE_EDX_PERSONAL_DASHBOARD ? [
-      {
-        heading: formatMessage(messages.dashboardSwitch),
-        items: [
-          {
-            type: 'item',
-            href: '/edx-dashboard',
-            content: formatMessage(messages.dashboardPersonal),
-            isActive: true,
-          },
-          ...(!_.isEmpty(dashboard) ? [{
-            type: 'item',
-            href: `${dashboard.url}`,
-            content: `${dashboard.label} ${formatMessage(messages.dashboard)}`,
-          }] : []),
-        ],
-      },
-    ] : []),
     {
       heading: '',
       items: [
-        ...(_.isEmpty(dashboard) && getConfig().CAREER_LINK_URL ? [{
-          type: 'item',
-          href: `${getConfig().CAREER_LINK_URL}`,
-          content:
-          <>
-            {formatMessage(messages.career)}
-            <Badge className="px-2 mx-2" variant="warning">
-              {formatMessage(messages.newAlert)}
-            </Badge>
-          </>,
-          onClick: () => {
-            sendTrackEvent(
-              'edx.bi.user.menu.career.clicked',
-              { category: 'header', label: 'header' },
-            );
-          },
-        }] : []),
         {
           type: 'item',
           href: `${getConfig().ACCOUNT_PROFILE_URL}/u/${authenticatedUser?.username}`,
