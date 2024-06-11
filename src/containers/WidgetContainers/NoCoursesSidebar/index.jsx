@@ -5,7 +5,7 @@ import RecommendationsPanel from 'widgets/RecommendationsPanel';
 import hooks from 'widgets/ProductRecommendations/hooks';
 
 export const WidgetSidebar = ({ setSidebarShowing }) => {
-  const { inRecommendationsVariant, isExperimentActive } = hooks.useShowRecommendationsFooter();
+  {/* const { inRecommendationsVariant, isExperimentActive } = hooks.useShowRecommendationsFooter();
 
   if (!inRecommendationsVariant && isExperimentActive) {
     setSidebarShowing(true);
@@ -19,7 +19,12 @@ export const WidgetSidebar = ({ setSidebarShowing }) => {
     );
   }
 
-  return null;
+return null; */}
+
+return (<div className="widget-sidebar px-2">
+            <div className="d-flex">
+            </div>
+        </div>);
 };
 
 WidgetSidebar.propTypes = {
