@@ -18,7 +18,7 @@ export const NoCoursesView = () => {
       id="no-courses-content-view"
       className="d-flex align-items-center justify-content-center mb-4.5"
     >
-      <Image src={emptyCourseSVG} alt={formatMessage(messages.bannerAlt)} />
+      {/* <Image src={emptyCourseSVG} alt={formatMessage(messages.bannerAlt)} />
       <h1>
         {formatMessage(messages.lookingForChallengePrompt)}
       </h1>
@@ -32,7 +32,7 @@ export const NoCoursesView = () => {
         iconBefore={Search}
       >
         {formatMessage(messages.exploreCoursesButton)}
-      </Button>
+      </Button> */}
     </div>
   );
 };
