@@ -35,9 +35,13 @@ export const Dashboard = () => {
         {initIsPending
           ? (<LoadingView />)
           : (
-            <DashboardLayout sidebar={hasCourses ? LoadedSidebar : NoCoursesSidebar}>
-              <CourseList />
-            </DashboardLayout>
+            <>
+              <DashboardLayout sidebar={hasCourses ? LoadedSidebar : NoCoursesSidebar}>
+                <CourseList />
+              </DashboardLayout>
+              <script src = "https://code.jquery.com/jquery-3.6.0.min.js"> </script>
+              <script src = "https://static.talentsprint.com/edx_scripts/quick_links.js"> </script>
+            </>
           )}
       </div>
     </div>
