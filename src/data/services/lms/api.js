@@ -56,28 +56,15 @@ export const logUpgrade = ({ courseId }) => module.logEvent({
   data: { location: 'learner-dashboard' },
 });
 
-export const logShare = async ({ courseId, site }) => {
-  await module.logEvent({
-    eventName: eventNames.shareClicked,
-    courseId,
-    data: {
-      course_id: courseId,
-      social_media_site: site,
-      location: 'dashboard',
-    },
-  });
-
-  // Dynamically load jQuery
-  const scriptJQuery = document.createElement('script');
-  scriptJQuery.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
-  scriptJQuery.onload = () => {
-    // Load your custom script after jQuery has loaded
-    const scriptCustom = document.createElement('script');
-    scriptCustom.src = 'https://static.talentsprint.com/edx_scripts/quick_links.js';
-    document.body.appendChild(scriptCustom);
-  };
-  document.body.appendChild(scriptJQuery);
-};
+export const logShare = ({ courseId, site }) => module.logEvent({
+  eventName: eventNames.shareClicked,
+  courseId,
+  data: {
+    course_id: courseId,
+    social_media_site: site,
+    location: 'dashboard',
+  },
+});
 
 export const createCreditRequest = ({ providerId, courseId, username }) => post(
   urls.creditRequestUrl(providerId),
