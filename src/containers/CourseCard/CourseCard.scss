@@ -47,9 +47,18 @@
         right: 0;
       }
     }
+
+    // New rule added to hide the first button
+    div[data-test-id="CourseCardActions"] {
+      button:first-child {
+        display: none;
+      }
+    }
   }
 
   .course-card-banners {
+    display: none; // Rule to hide .course-card-banners
+
     > .alert {
       border-radius: 0;
       box-shadow: none;
