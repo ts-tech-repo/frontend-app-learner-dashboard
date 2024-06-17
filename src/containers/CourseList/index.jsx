@@ -6,7 +6,7 @@ import { Pagination } from '@edx/paragon';
 import { reduxHooks } from 'hooks';
 import {
   ActiveCourseFilters,
-  CourseFilterControls,
+  // CourseFilterControls,
 } from 'containers/CourseFilterControls';
 import CourseCard from 'containers/CourseCard';
 import NoCoursesView from './NoCoursesView';
@@ -33,7 +33,7 @@ export const CourseList = () => {
       <div className="course-list-heading-container">
         <h2 className="course-list-title">{formatMessage(messages.myCourses)}</h2>
         <div className="course-filter-controls-container">
-          <CourseFilterControls {...filterOptions} />
+          {/* <CourseFilterControls {...filterOptions} /> */}
         </div>
       </div>
       {hasCourses
