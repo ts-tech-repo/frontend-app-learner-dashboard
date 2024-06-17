@@ -37,7 +37,7 @@ export const CourseCard = ({
               </Card.Footer>
             </Card.Body>
           </div>
-          <CourseCardBanners cardId={cardId} />
+{/*           <CourseCardBanners cardId={cardId} /> */}
         </div>
       </Card>
     </div>
