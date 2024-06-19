@@ -22,7 +22,7 @@ export const CourseCard = ({
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
       <Card orientation={orientation}>
         <div className="d-flex flex-column w-100">
-          <div {...(!isCollapsed && { className: 'd-flex' })}>
+          <div {...(!isCollapsed && { className: 'd-flex flex-column' })}>
             <CourseCardImage cardId={cardId} orientation="horizontal" />
             <Card.Body>
               <Card.Header

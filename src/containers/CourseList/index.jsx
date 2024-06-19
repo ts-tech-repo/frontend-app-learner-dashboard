@@ -44,7 +44,7 @@ export const CourseList = () => {
                 <ActiveCourseFilters {...filterOptions} />
               </div>
             )}
-            <div className="d-flex flex-column flex-grow-1">
+            <div className="d-flex flex-row flex-grow-1 card_div">
               {visibleList.map(({ cardId }) => (
                 <CourseCard key={cardId} cardId={cardId} />
               ))}
