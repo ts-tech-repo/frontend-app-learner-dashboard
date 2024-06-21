@@ -29,7 +29,6 @@ export const ExpandedHeader = () => {
 
         <Button
           as="a"
-          href="/"
           variant="inverse-primary"
           className="p-4 course-link"
         >

@@ -48,7 +48,7 @@ const messages = defineMessages({
   },
   course: {
     id: 'learnerVariantDashboard.course',
-    defaultMessage: 'Courses',
+    defaultMessage: 'IIT Kanpur eMasters Degree',
     description: 'Header link for switching to dashboard page.',
   },
   program: {
