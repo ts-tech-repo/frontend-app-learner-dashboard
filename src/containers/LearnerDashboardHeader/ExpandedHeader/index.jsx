@@ -34,7 +34,7 @@ export const ExpandedHeader = () => {
         >
           {formatMessage(messages.course)}
         </Button>
-        <Button
+         {/*<Button
           as="a"
           href={urls.programsUrl()}
           variant="inverse-primary"
@@ -50,17 +50,17 @@ export const ExpandedHeader = () => {
           onClick={exploreCoursesClick}
         >
           {formatMessage(messages.discoverNew)}
-        </Button>
+        </Button> */}
         <WidgetNavbar placement={EXPANDED_NAVBAR} />
         <span className="flex-grow-1" />
-        <Button
+        {/* <Button
           as="a"
           href={getConfig().SUPPORT_URL}
           variant="inverse-primary"
           className="p-4"
         >
           {formatMessage(messages.help)}
-        </Button>
+        </Button> */}
       </div>
 
       <AuthenticatedUserDropdown />
