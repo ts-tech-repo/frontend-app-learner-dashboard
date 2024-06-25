@@ -5,8 +5,23 @@ import { Button } from '@edx/paragon';
 
 import useCardDetailsData from './hooks';
 import './index.scss';
+import { reduxHooks } from 'hooks';
 
-export const CourseCardDetails = ({ cardId }) => {
+const CourseCardDetails = ({ cardId }) => {
+  const { homeUrl } = reduxHooks.useCardCourseRunData(cardId);
+
+  const extractCourseDetails = () => {
+    if (!homeUrl) return { org: '', courseCode: '' };
+
+    const extract_url = homeUrl.split(':');
+    const org = extract_url[2].split('+')[0];
+    const courseCode = extract_url[2].split('+')[1].split('-')[0];
+
+    return { org: org.toUpperCase(), courseCode: courseCode.toUpperCase() };
+  };
+
+  const { org, courseCode } = extractCourseDetails();
+
   const {
     providerName,
     accessMessage,
@@ -20,18 +35,23 @@ export const CourseCardDetails = ({ cardId }) => {
 
   return (
     <span className="small" data-testid="CourseCardDetails">
-       {providerName} • {courseNumber}
-      {!(isEntitlement && !isFulfilled) && accessMessage && (
-        ` • ${accessMessage}`
-      )}
-      {isEntitlement && isFulfilled && canChange ? (
-        <>
-          {' • '}
-          <Button variant="link" size="inline" className="m-0 p-0" onClick={openSessionModal}>
-            {changeOrLeaveSessionMessage}
-          </Button>
-        </>
-      ) : null}
+      {org === "EMIITK" ? courseCode :
+      <>
+        {' • '}
+        {providerName} • {courseNumber}
+        {!(isEntitlement && !isFulfilled) && accessMessage && (
+          ` • ${accessMessage}`
+        )}
+        {isEntitlement && isFulfilled && canChange ? (
+          <>
+            {' • '}
+            <Button variant="link" size="inline" className="m-0 p-0" onClick={openSessionModal}>
+              {changeOrLeaveSessionMessage}
+            </Button>
+          </>
+        ) : null}
+      </>
+      }
     </span>
   );
 };
