@@ -58,7 +58,7 @@ export const useCardDetailsData = ({ cardId }) => {
     openSessionModal,
     courseNumber,
     changeOrLeaveSessionMessage: formatMessage(messages.changeOrLeaveSessionButton),
-    courseId : courseData.courseId
+    courseId : courseData
   };
 };
 
