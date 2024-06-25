@@ -25,13 +25,13 @@ export const CourseCard = ({
           <div {...(!isCollapsed && { className: 'd-flex flex-column' })}>
             <CourseCardImage cardId={cardId} orientation="horizontal" />
             <Card.Body>
+              <Card.Section className="pt-0">
+                <CourseCardDetails cardId={cardId} />
+              </Card.Section>
               <Card.Header
                 title={<CourseCardTitle cardId={cardId} />}
                 actions={<CourseCardMenu cardId={cardId} />}
               />
-              <Card.Section className="pt-0">
-                <CourseCardDetails cardId={cardId} />
-              </Card.Section>
               <Card.Footer orientation={orientation}>
                 <CourseCardActions cardId={cardId} />
               </Card.Footer>
