@@ -16,11 +16,12 @@ export const CourseCardDetails = ({ cardId }) => {
     openSessionModal,
     courseNumber,
     changeOrLeaveSessionMessage,
+    courseId
   } = useCardDetailsData({ cardId });
 
   return (
     <span className="small" data-testid="CourseCardDetails">
-      {providerName} • {courseNumber}
+      {courseId} . {providerName} • {courseNumber}
       {!(isEntitlement && !isFulfilled) && accessMessage && (
         ` • ${accessMessage}`
       )}
