@@ -20,7 +20,14 @@ export const ViewCourseButton = ({ cardId }) => {
     homeUrl,
   );
   return (
-    <ActionButton
+    <>
+    {
+      disableViewCourse == true ? <ActionButton
+      disabled={disableViewCourse}
+      as="a"
+    >
+      Coming Up 
+    </ActionButton> : <ActionButton
       disabled={disableViewCourse}
       as="a"
       href="#"
@@ -28,6 +35,8 @@ export const ViewCourseButton = ({ cardId }) => {
     >
       {formatMessage(messages.viewCourse)}
     </ActionButton>
+    }
+    </>
   );
 };
 ViewCourseButton.propTypes = {
