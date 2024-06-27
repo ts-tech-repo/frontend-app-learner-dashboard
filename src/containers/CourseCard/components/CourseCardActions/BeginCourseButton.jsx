@@ -21,14 +21,28 @@ export const BeginCourseButton = ({ cardId }) => {
     homeUrl + execEdTrackingParam,
   );
   return (
-    <ActionButton
+    <>
+    {console.log(disableBeginCourse)}
+    {
+      disableBeginCourse == true ?  <ActionButton
       disabled={disableBeginCourse}
       as="a"
       href="#"
       onClick={handleClick}
     >
       {formatMessage(messages.beginCourse)}
-    </ActionButton>
+    </ActionButton> :
+    <ActionButton
+    disabled={disableBeginCourse}
+    as="a"
+    href="#"
+    onClick={handleClick}
+  >
+    {formatMessage(messages.beginCourse)}
+  </ActionButton>
+    }
+    </>
+   
   );
 };
 BeginCourseButton.propTypes = {
