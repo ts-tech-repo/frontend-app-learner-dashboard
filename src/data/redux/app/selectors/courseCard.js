@@ -1,3 +1,4 @@
+import React from 'react';
 import { StrictDict } from 'utils';
 import { baseAppUrl } from 'data/services/lms/urls';
 import { EXECUTIVE_EDUCATION_COURSE_MODES } from 'data/constants/course';
@@ -152,4 +153,14 @@ export const courseCard = StrictDict({
   ),
 });
 
-export default courseCard;
+const CourseProvider = () => {
+  const { name } = courseCard.courseProvider;
+
+  return (
+    <div style={{display:'none'}}>
+      {name}
+    </div>
+  );
+};
+
+export default CourseProvider;
