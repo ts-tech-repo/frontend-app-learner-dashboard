@@ -36,6 +36,7 @@ const CourseCardDetails = ({ cardId }) => {
   return (
     <span className="small" data-testid="CourseCardDetails">
       <div style={{display:"none"}}> {courseNumber}</div>
+      <div className='provider-name-tag' style={{display:"none"}}> {{providerName}}</div>
       {org === "EMIITK" ? courseCode :
       <>
         {' • '}
