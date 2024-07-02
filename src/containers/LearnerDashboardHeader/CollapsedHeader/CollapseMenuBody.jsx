@@ -86,6 +86,13 @@ export const CollapseMenuBody = ({ isOpen }) => {
             )}
             <Button
               as="a"
+              href="https://emasters.iitk.ac.in/report/dashboard"
+              variant="inverse-primary"
+            >
+              Orders and Payments
+            </Button>
+            <Button
+              as="a"
               href={getConfig().LOGOUT_URL}
               variant="inverse-primary"
             >
