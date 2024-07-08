@@ -26,12 +26,17 @@ export const CollapseMenuBody = ({ isOpen }) => {
   const [quickLinkText, setQuickLinkText] = React.useState("IIT Kanpur eMasters Degree");
 
   React.useEffect(() => {
-    const quickLinkElement = document.querySelector('.quick-link-tag');
-    if (quickLinkElement) {
-      const fullText = quickLinkElement.textContent;
-      const textBeforeHyphen = fullText.includes(' - ') ? fullText.split(' - ')[0] : fullText;
-      setQuickLinkText(`eMasters in ${textBeforeHyphen} `);
-    }
+    const interval = setInterval(() => {
+      const quickLinkElement = document.querySelector('.quick-link-tag');
+      if (quickLinkElement) {
+        const fullText = quickLinkElement.textContent;
+        const textBeforeHyphen = fullText.includes(' - ') ? fullText.split(' - ')[0] : fullText;
+        setQuickLinkText(`eMasters in ${textBeforeHyphen} `);
+        clearInterval(interval);
+      }
+    }, 100);
+
+    return () => clearInterval(interval); 
   }, []);
 
   return (
