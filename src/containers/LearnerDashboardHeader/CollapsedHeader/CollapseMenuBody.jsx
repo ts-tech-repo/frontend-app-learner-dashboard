@@ -27,16 +27,18 @@ export const CollapseMenuBody = ({ isOpen }) => {
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      const quickLinkElement = document.querySelector('.quick-link-tag');
-      if (quickLinkElement) {
-        const fullText = quickLinkElement.textContent;
-        const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
-        setQuickLinkText(`eMasters in ${textBeforeHyphen} `);
-        clearInterval(interval);
-      }
+        const quickLinkElement = document.querySelector('.quick-link-tag');
+        if (quickLinkElement) {
+            const fullText = quickLinkElement.textContent;
+            const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
+            if (!fullText.startsWith('QUINCE') && !fullText.startsWith('EMIITK')) {
+                setQuickLinkText(`eMasters in ${textBeforeHyphen} `);
+            }
+            clearInterval(interval);
+        }
     }, 100);
 
-    return () => clearInterval(interval); 
+    return () => clearInterval(interval);
   }, []);
 
   return (
