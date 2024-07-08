@@ -23,11 +23,20 @@ export const CollapseMenuBody = ({ isOpen }) => {
 
   const exploreCoursesClick = findCoursesNavDropdownClicked(urls.baseAppUrl(courseSearchUrl));
 
+  const [quickLinkText, setQuickLinkText] = React.useState("IIT Kanpur eMasters Degree");
+
+  React.useEffect(() => {
+    const quickLinkElement = document.querySelector('.quick-link-tag');
+    if (quickLinkElement) {
+      setQuickLinkText(quickLinkElement.textContent);
+    }
+  }, []);
+
   return (
     isOpen && (
       <div className="d-flex flex-column shadow-sm nav-small-menu">
         <Button as="a" variant="inverse-primary">
-          {formatMessage(messages.course)}
+          {quickLinkText}
         </Button>
         {/* <Button as="a" href={urls.programsUrl()} variant="inverse-primary">
           {formatMessage(messages.program)}
