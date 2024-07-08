@@ -28,7 +28,9 @@ export const CollapseMenuBody = ({ isOpen }) => {
   React.useEffect(() => {
     const quickLinkElement = document.querySelector('.quick-link-tag');
     if (quickLinkElement) {
-      setQuickLinkText(quickLinkElement.textContent);
+      const fullText = quickLinkElement.textContent;
+      const textBeforeHyphen = fullText.includes(' - ') ? fullText.split(' - ')[0] : fullText;
+      setQuickLinkText(`eMasters in ${textBeforeHyphen} `);
     }
   }, []);
 
