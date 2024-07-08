@@ -29,7 +29,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
     const interval = setInterval(() => {
         const quickLinkElement = document.querySelector('.quick-link-tag');
         if (quickLinkElement) {
-            const fullText = quickLinkElement.textContent;
+            const fullText = quickLinkElement.textContent.trim();
             const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
             if (!fullText.startsWith('QUINCE') && !fullText.startsWith('EMIITK')) {
                 setQuickLinkText(`eMasters in ${textBeforeHyphen} `);
@@ -39,7 +39,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
     }, 100);
 
     return () => clearInterval(interval);
-  }, []);
+}, []);
 
   return (
     isOpen && (
