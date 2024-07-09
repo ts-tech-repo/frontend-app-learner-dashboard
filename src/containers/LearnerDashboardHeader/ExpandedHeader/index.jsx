@@ -21,50 +21,68 @@ export const ExpandedHeader = () => {
 
   const exploreCoursesClick = findCoursesNavClicked(urls.baseAppUrl(courseSearchUrl));
 
+  const [quickLinkText, setQuickLinkText] = React.useState("IIT Kanpur eMasters Degree");
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+        const quickLinkElement = document.querySelector('.quick-link-tag');
+        if (quickLinkElement) {
+            const fullText = quickLinkElement.textContent.trim();
+            const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
+            if (!fullText.startsWith('QUINCE') && !fullText.startsWith('EMIITK')) {
+                setQuickLinkText(`eMasters in ${textBeforeHyphen}`);
+            }
+            clearInterval(interval);
+        }
+    }, 100);
+
+    return () => clearInterval(interval);
+}, []);
+
   return (
     !isCollapsed && (
-    <header className="d-flex shadow-sm align-items-center learner-variant-header pl-4">
-      <div className="flex-grow-1 d-flex align-items-center">
-        <BrandLogo />
+      <header className="d-flex shadow-sm align-items-center learner-variant-header pl-4">
+        <div className="flex-grow-1 d-flex align-items-center">
+          <BrandLogo />
 
-        <Button
-          as="a"
-          variant="inverse-primary"
-          className="p-4 course-link"
-        >
-          {formatMessage(messages.course)}
-        </Button>
-         {/*<Button
-          as="a"
-          href={urls.programsUrl()}
-          variant="inverse-primary"
-          className="p-4"
-        >
-          {formatMessage(messages.program)}
-        </Button>
-        <Button
-          as="a"
-          href={urls.baseAppUrl(courseSearchUrl)}
-          variant="inverse-primary"
-          className="p-4"
-          onClick={exploreCoursesClick}
-        >
-          {formatMessage(messages.discoverNew)}
-        </Button> */}
-        <WidgetNavbar placement={EXPANDED_NAVBAR} />
-        <span className="flex-grow-1" />
-        {/* <Button
-          as="a"
-          href={getConfig().SUPPORT_URL}
-          variant="inverse-primary"
-          className="p-4"
-        >
-          {formatMessage(messages.help)}
-        </Button> */}
-      </div>
+          <Button
+            as="a"
+            variant="inverse-primary"
+            className="p-4 course-link"
+          >
+            {quickLinkText}
+          </Button>
+          {/*<Button
+            as="a"
+            href={urls.programsUrl()}
+            variant="inverse-primary"
+            className="p-4"
+          >
+            {formatMessage(messages.program)}
+          </Button>
+          <Button
+            as="a"
+            href={urls.baseAppUrl(courseSearchUrl)}
+            variant="inverse-primary"
+            className="p-4"
+            onClick={exploreCoursesClick}
+          >
+            {formatMessage(messages.discoverNew)}
+          </Button> */}
+          <WidgetNavbar placement={EXPANDED_NAVBAR} />
+          <span className="flex-grow-1" />
+          {/* <Button
+            as="a"
+            href={getConfig().SUPPORT_URL}
+            variant="inverse-primary"
+            className="p-4"
+          >
+            {formatMessage(messages.help)}
+          </Button> */}
+        </div>
 
-      <AuthenticatedUserDropdown />
-    </header>
+        <AuthenticatedUserDropdown />
+      </header>
     )
   );
 };
