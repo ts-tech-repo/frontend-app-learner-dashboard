@@ -79,7 +79,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
             )}
             <Button
               as="a"
-              href={`${getConfig().LMS_BASE_URL}/u/${
+              href={`${getConfig().LMS_BASE_URL}/profile/u/${
                 authenticatedUser.username
               }`}
               variant="inverse-primary"
@@ -88,7 +88,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
             </Button>
             <Button
               as="a"
-              href={`${getConfig().LMS_BASE_URL}/account/settings`}
+              href={`${getConfig().LMS_BASE_URL}/account/`}
               variant="inverse-primary"
             >
               {formatMessage(messages.account)}
