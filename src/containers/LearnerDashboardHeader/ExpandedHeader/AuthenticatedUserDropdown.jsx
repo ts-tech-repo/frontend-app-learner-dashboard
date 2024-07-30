@@ -64,9 +64,6 @@ export const AuthenticatedUserDropdown = () => {
             </Dropdown.Item>
           )}
           <Dropdown.Divider />
-          <Dropdown.Item target="_blank" href="https://emasters.iitk.ac.in/report/login">
-            Orders and Payments
-          </Dropdown.Item>
           <Dropdown.Item href={getConfig().LOGOUT_URL}>
             {formatMessage(messages.signOut)}
           </Dropdown.Item>

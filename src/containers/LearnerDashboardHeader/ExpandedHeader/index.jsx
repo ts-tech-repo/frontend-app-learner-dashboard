@@ -21,7 +21,7 @@ export const ExpandedHeader = () => {
 
   const exploreCoursesClick = findCoursesNavClicked(urls.baseAppUrl(courseSearchUrl));
 
-  const [quickLinkText, setQuickLinkText] = React.useState("IIT Kanpur eMasters Degree");
+  const [quickLinkText, setQuickLinkText] = React.useState("");
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -29,8 +29,8 @@ export const ExpandedHeader = () => {
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
             const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
-            if (!fullText.startsWith('QUINCE') && !fullText.startsWith('EMIITK')) {
-                setQuickLinkText(`eMasters in ${textBeforeHyphen}`);
+            if (!fullText.startsWith('CMU')) {
+                setQuickLinkText(` ${textBeforeHyphen}`);
             }
             clearInterval(interval);
         }

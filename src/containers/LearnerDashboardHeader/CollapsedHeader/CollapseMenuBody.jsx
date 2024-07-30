@@ -23,7 +23,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
 
   const exploreCoursesClick = findCoursesNavDropdownClicked(urls.baseAppUrl(courseSearchUrl));
 
-  const [quickLinkText, setQuickLinkText] = React.useState("IIT Kanpur eMasters Degree");
+  const [quickLinkText, setQuickLinkText] = React.useState("");
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -31,8 +31,8 @@ export const CollapseMenuBody = ({ isOpen }) => {
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
             const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
-            if (!fullText.startsWith('QUINCE') && !fullText.startsWith('EMIITK')) {
-                setQuickLinkText(`eMasters in ${textBeforeHyphen} `);
+            if (!fullText.startsWith('CMU')) {
+                setQuickLinkText(` ${textBeforeHyphen} `);
             }
             clearInterval(interval);
         }
@@ -102,13 +102,6 @@ export const CollapseMenuBody = ({ isOpen }) => {
                 {formatMessage(messages.orderHistory)}
               </Button>
             )}
-            <Button
-              as="a"
-              href="https://emasters.iitk.ac.in/report/dashboard"
-              variant="inverse-primary"
-            >
-              Orders and Payments
-            </Button>
             <Button
               as="a"
               href={getConfig().LOGOUT_URL}
