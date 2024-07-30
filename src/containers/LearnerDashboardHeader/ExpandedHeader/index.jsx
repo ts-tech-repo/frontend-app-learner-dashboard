@@ -29,9 +29,7 @@ export const ExpandedHeader = () => {
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
             const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
-            if (!fullText.startsWith('CMU')) {
-                setQuickLinkText(` ${textBeforeHyphen}`);
-            }
+            setQuickLinkText(textBeforeHyphen);
             clearInterval(interval);
         }
     }, 100);
