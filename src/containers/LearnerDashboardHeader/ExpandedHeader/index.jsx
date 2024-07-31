@@ -21,21 +21,7 @@ export const ExpandedHeader = () => {
 
   const exploreCoursesClick = findCoursesNavClicked(urls.baseAppUrl(courseSearchUrl));
 
-  const [quickLinkText, setQuickLinkText] = React.useState("");
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-        const quickLinkElement = document.querySelector('.quick-link-tag');
-        if (quickLinkElement) {
-            const fullText = quickLinkElement.textContent.trim();
-            const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
-            setQuickLinkText(textBeforeHyphen);
-            clearInterval(interval);
-        }
-    }, 100);
-
-    return () => clearInterval(interval);
-}, []);
+  const [quickLinkText, setQuickLinkText] = React.useState("Responsible AI");
 
   return (
     !isCollapsed && (
