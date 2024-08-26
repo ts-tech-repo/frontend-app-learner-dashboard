@@ -9,7 +9,7 @@ export const messages = StrictDict({
   beginCourse: {
     id: 'learner-dash.courseCard.actions.beginCourse',
     description: 'Course card begin-course button text',
-    defaultMessage: 'View Course',
+    defaultMessage: 'View Course (Begin)',
   },
   resume: {
     id: 'learner-dash.courseCard.actions.resume',
