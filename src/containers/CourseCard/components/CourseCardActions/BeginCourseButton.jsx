@@ -13,12 +13,7 @@ export const BeginCourseButton = ({ cardId }) => {
   const { formatMessage } = useIntl();
   const { homeUrl } = reduxHooks.useCardCourseRunData(cardId);
   const execEdTrackingParam = reduxHooks.useCardExecEdTrackingParam(cardId);
-  const { disableBeginCourse,
-    disableResumeCourse,
-    disableViewCourse,
-    disableUpgradeCourse,
-    disableSelectSession,
-    disableCourseTitle, } = useActionDisabledState(cardId);
+  const { disableBeginCourse } = useActionDisabledState(cardId);
 
   const handleClick = reduxHooks.useTrackCourseEvent(
     track.course.enterCourseClicked,
@@ -27,12 +22,7 @@ export const BeginCourseButton = ({ cardId }) => {
   );
   return (
     <>
-    {console.log(disableBeginCourse,
-    disableResumeCourse,
-    disableViewCourse,
-    disableUpgradeCourse,
-    disableSelectSession,
-    disableCourseTitle)}
+    {console.log(disableBeginCourse)}
     {
       disableBeginCourse == true ?  <ActionButton
       disabled={disableBeginCourse}
