@@ -11,7 +11,7 @@ export const useActionDisabledState = (cardId) => {
 
   const { resumeUrl, homeUrl, upgradeUrl } = reduxHooks.useCardCourseRunData(cardId);
 
-  const disableBeginCourse = !homeUrl || (isMasquerading || !hasAccess || (isAudit && isAuditAccessExpired));
+  const disableBeginCourse = !homeUrl || (!hasAccess || (isAudit && isAuditAccessExpired));
   const disableResumeCourse = !resumeUrl || (isMasquerading || !hasAccess || (isAudit && isAuditAccessExpired));
   const disableViewCourse = !hasAccess || (isAudit && isAuditAccessExpired);
   const disableSelectSession = !isEntitlement || isMasquerading || !hasAccess || (!canChange || !hasSessions);
