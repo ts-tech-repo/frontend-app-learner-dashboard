@@ -9,9 +9,12 @@ export const useActionDisabledState = (cardId) => {
     isEntitlement, isFulfilled, canChange, hasSessions,
   } = reduxHooks.useCardEntitlementData(cardId);
 
-  const { resumeUrl, homeUrl, upgradeUrl } = reduxHooks.useCardCourseRunData(cardId);
+  const { resumeUrl, homeUrl, upgradeUrl, startDate } = reduxHooks.useCardCourseRunData(cardId);
 
-  const disableBeginCourse = !homeUrl || (!hasAccess || (isAudit && isAuditAccessExpired));
+  //const disableBeginCourse = !homeUrl || (!hasAccess || (isAudit && isAuditAccessExpired));
+  const disableBeginCourse = isMasquerading
+  ? startDate > new Date()
+  : !homeUrl || (!hasAccess || (isAudit && isAuditAccessExpired));
   const disableResumeCourse = !resumeUrl || (isMasquerading || !hasAccess || (isAudit && isAuditAccessExpired));
   const disableViewCourse = !hasAccess || (isAudit && isAuditAccessExpired);
   const disableSelectSession = !isEntitlement || isMasquerading || !hasAccess || (!canChange || !hasSessions);
