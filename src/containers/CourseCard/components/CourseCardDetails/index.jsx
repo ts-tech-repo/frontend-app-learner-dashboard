@@ -37,25 +37,27 @@ const CourseCardDetails = ({ cardId }) => {
     <span className="small" data-testid="CourseCardDetails">
       <div className='quick-link-tag' style={{display:"none"}}> {providerName}-{courseNumber}</div>
       <div className='course-number-display-string' style={{display:"none"}}>{courseNumber}</div>
-      {org === "EMIITK" || org === "QUINCE" ? (
+      {
+      // org === "EMIITK" || org === "QUINCE" ? (
         courseCode
-      ) : (
-      <>
-        {' • '}
-        {providerName} • {courseNumber}
-        {!(isEntitlement && !isFulfilled) && accessMessage && (
-          ` • ${accessMessage}`
-        )}
-        {isEntitlement && isFulfilled && canChange ? (
-          <>
-            {' • '}
-            <Button variant="link" size="inline" className="m-0 p-0" onClick={openSessionModal}>
-              {changeOrLeaveSessionMessage}
-            </Button>
-          </>
-        ) : null}
-      </>
-      )}
+      // ) : (
+      // <>
+      //   {' • '}
+      //   {providerName} • {courseNumber}
+      //   {!(isEntitlement && !isFulfilled) && accessMessage && (
+      //     ` • ${accessMessage}`
+      //   )}
+      //   {isEntitlement && isFulfilled && canChange ? (
+      //     <>
+      //       {' • '}
+      //       <Button variant="link" size="inline" className="m-0 p-0" onClick={openSessionModal}>
+      //         {changeOrLeaveSessionMessage}
+      //       </Button>
+      //     </>
+      //   ) : null}
+      // </>
+      // )
+      }
     </span>
   );
 };
