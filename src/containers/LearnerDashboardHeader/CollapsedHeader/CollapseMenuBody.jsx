@@ -30,9 +30,9 @@ export const CollapseMenuBody = ({ isOpen }) => {
         const quickLinkElement = document.querySelector('.quick-link-tag');
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
-            if (!fullText.startsWith('QUINCE') && !fullText.startsWith('EMIITK')) {
-                setQuickLinkText(`eMasters in ${fullText} `);
-            }
+            // if (!fullText.startsWith('QUINCE') && !fullText.startsWith('EMIITK')) {
+                setQuickLinkText(` ${fullText} `);
+            // }
             clearInterval(interval);
         }
     }, 100);
