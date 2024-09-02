@@ -18,7 +18,7 @@ const messages = defineMessages({
   },
   StudentNameInput: {
     id: 'MasqueradeBar.StudentNameInput',
-    defaultMessage: 'Username or email',
+    defaultMessage: 'email',
     description: 'Label for the Student Name or email input',
   },
   NoStudentFound: {
