@@ -30,8 +30,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
         const quickLinkElement = document.querySelector('.quick-link-tag');
         if (quickLinkElement) {
           const fullText = quickLinkElement.textContent.trim();
-          const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
-          setQuickLinkText(textBeforeHyphen);
+         setQuickLinkText(`${fullText}`);
           clearInterval(interval);
       }
     }, 100);
