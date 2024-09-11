@@ -15,10 +15,10 @@ import { findCoursesNavDropdownClicked } from '../hooks';
 import messages from '../messages';
 
 export const CollapseMenuBody = ({ isOpen }) => {
+  const { formatMessage } = useIntl();
   const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
   console.log(siteNameMessage);
   
-  const { formatMessage } = useIntl();
   const { authenticatedUser } = React.useContext(AppContext);
 
   const dashboard = reduxHooks.useEnterpriseDashboardData();

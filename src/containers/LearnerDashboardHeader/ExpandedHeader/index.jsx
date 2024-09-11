@@ -15,10 +15,10 @@ import messages from '../messages';
 import BrandLogo from '../BrandLogo';
 
 export const ExpandedHeader = () => {
+  const { formatMessage } = useIntl();
   const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
   console.log(siteNameMessage);
 
-  const { formatMessage } = useIntl();
   const { courseSearchUrl } = reduxHooks.usePlatformSettingsData();
   const isCollapsed = useIsCollapsed();
 
