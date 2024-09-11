@@ -53,6 +53,7 @@ export const ExpandedHeader = () => {
             {formatMessage(messages.site_name_for_title) === "IIT Kanpur eMasters Degree"
               ? quickLinkText
               : formatMessage(messages.site_name_for_title)}
+              {console.log(formatMessage(messages.site_name_for_title))}
           </Button>
           {/*<Button
             as="a"
