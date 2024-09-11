@@ -15,13 +15,17 @@ import messages from '../messages';
 import BrandLogo from '../BrandLogo';
 
 export const ExpandedHeader = () => {
+  const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
+  console.log(siteNameMessage);
+
   const { formatMessage } = useIntl();
   const { courseSearchUrl } = reduxHooks.usePlatformSettingsData();
   const isCollapsed = useIsCollapsed();
 
   const exploreCoursesClick = findCoursesNavClicked(urls.baseAppUrl(courseSearchUrl));
 
-  const [quickLinkText, setQuickLinkText] = React.useState("IIT Kanpur eMasters Degree");
+  const [emasterTitle, setEmasterTitle] = React.useState("IIT Kanpur eMasters Degree");
+  const [certificateTitle, setCertificateTitle] = React.useState(siteNameMessage);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -29,9 +33,8 @@ export const ExpandedHeader = () => {
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
             const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
-            if (!fullText.startsWith('QUINCE') && !fullText.startsWith('EMIITK')) {
-                setQuickLinkText(`eMasters in ${textBeforeHyphen}`);
-            }
+            setEmasterTitle(`eMasters in ${textBeforeHyphen}`);
+            setCertificateTitle(textBeforeHyphen);
             clearInterval(interval);
         }
     }, 100);
@@ -39,8 +42,6 @@ export const ExpandedHeader = () => {
     return () => clearInterval(interval);
 }, []);
 
-const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
-console.log(siteNameMessage);
   return (
     !isCollapsed && (
       <header className="d-flex shadow-sm align-items-center learner-variant-header pl-4">
@@ -52,7 +53,7 @@ console.log(siteNameMessage);
             variant="inverse-primary"
             className="p-4 course-link"
           >
-            {siteNameMessage === "IIT Kanpur eMasters Degree" ? quickLinkText : siteNameMessage}
+            {siteNameMessage === "IIT Kanpur eMasters Degree" ? emasterTitle : certificateTitle}
           </Button>
           {/*<Button
             as="a"

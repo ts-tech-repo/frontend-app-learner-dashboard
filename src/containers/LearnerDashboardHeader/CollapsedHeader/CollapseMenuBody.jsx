@@ -15,6 +15,9 @@ import { findCoursesNavDropdownClicked } from '../hooks';
 import messages from '../messages';
 
 export const CollapseMenuBody = ({ isOpen }) => {
+  const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
+  console.log(siteNameMessage);
+  
   const { formatMessage } = useIntl();
   const { authenticatedUser } = React.useContext(AppContext);
 
@@ -23,7 +26,8 @@ export const CollapseMenuBody = ({ isOpen }) => {
 
   const exploreCoursesClick = findCoursesNavDropdownClicked(urls.baseAppUrl(courseSearchUrl));
 
-  const [quickLinkText, setQuickLinkText] = React.useState("IIT Kanpur eMasters Degree");
+  const [emasterTitle, setEmasterTitle] = React.useState("IIT Kanpur eMasters Degree");
+  const [certificateTitle, setCertificateTitle] = React.useState(siteNameMessage);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -31,22 +35,20 @@ export const CollapseMenuBody = ({ isOpen }) => {
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
             const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
-            if (!fullText.startsWith('QUINCE') && !fullText.startsWith('EMIITK')) {
-                setQuickLinkText(`eMasters in ${textBeforeHyphen} `);
-            }
+            setEmasterTitle(`eMasters in ${textBeforeHyphen}`);
+            setCertificateTitle(textBeforeHyphen);
             clearInterval(interval);
         }
     }, 100);
 
     return () => clearInterval(interval);
 }, []);
-const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
-console.log(siteNameMessage);
+
   return (
     isOpen && (
       <div className="d-flex flex-column shadow-sm nav-small-menu">
         <Button as="a" variant="inverse-primary">
-        {siteNameMessage === "IIT Kanpur eMasters Degree" ? quickLinkText : siteNameMessage}
+        {siteNameMessage === "IIT Kanpur eMasters Degree" ? emasterTitle : certificateTitle}
         </Button>
         {/* <Button as="a" href={urls.programsUrl()} variant="inverse-primary">
           {formatMessage(messages.program)}
