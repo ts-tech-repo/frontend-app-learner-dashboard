@@ -50,7 +50,9 @@ export const ExpandedHeader = () => {
             variant="inverse-primary"
             className="p-4 course-link"
           >
-            {quickLinkText}
+            {formatMessage(messages.site_name_for_title) === "IIT Kanpur eMasters Degree"
+              ? quickLinkText
+              : formatMessage(messages.site_name_for_title)}
           </Button>
           {/*<Button
             as="a"
