@@ -39,6 +39,8 @@ export const ExpandedHeader = () => {
     return () => clearInterval(interval);
 }, []);
 
+const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
+console.log(siteNameMessage);
   return (
     !isCollapsed && (
       <header className="d-flex shadow-sm align-items-center learner-variant-header pl-4">
@@ -50,10 +52,7 @@ export const ExpandedHeader = () => {
             variant="inverse-primary"
             className="p-4 course-link"
           >
-            {formatMessage(messages.site_name_for_title) === "IIT Kanpur eMasters Degree"
-              ? quickLinkText
-              : formatMessage(messages.site_name_for_title)}
-              {console.log(formatMessage(messages.site_name_for_title))}
+            {siteNameMessage === "IIT Kanpur eMasters Degree" ? quickLinkText : siteNameMessage}
           </Button>
           {/*<Button
             as="a"

@@ -40,14 +40,13 @@ export const CollapseMenuBody = ({ isOpen }) => {
 
     return () => clearInterval(interval);
 }, []);
-
+const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
+console.log(siteNameMessage);
   return (
     isOpen && (
       <div className="d-flex flex-column shadow-sm nav-small-menu">
         <Button as="a" variant="inverse-primary">
-        {formatMessage(messages.site_name_for_title) === "IIT Kanpur eMasters Degree"
-              ? quickLinkText
-              : formatMessage(messages.site_name_for_title)}
+        {siteNameMessage === "IIT Kanpur eMasters Degree" ? quickLinkText : siteNameMessage}
         </Button>
         {/* <Button as="a" href={urls.programsUrl()} variant="inverse-primary">
           {formatMessage(messages.program)}

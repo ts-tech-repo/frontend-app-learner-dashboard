@@ -86,7 +86,7 @@ const messages = defineMessages({
     defaultMessage: 'New',
     description: 'The text announcing that an item in the user menu is New',
   },
-  site_name_for_title: {
+  'with.site.name': {
     id: 'with.site.name',
     defaultMessage: '{siteName}',
     description: 'Header text with site name for logistration MFE pages',

@@ -38,7 +38,7 @@ const CourseCardDetails = ({ cardId }) => {
       <div className='quick-link-tag' style={{display:"none"}}> {providerName}-{courseNumber}</div>
       {org === "EMIITK" ? courseCode :
       <>
-        {' • '}
+        {/* {' • '}
         {providerName} • {courseNumber}
         {!(isEntitlement && !isFulfilled) && accessMessage && (
           ` • ${accessMessage}`
@@ -50,7 +50,7 @@ const CourseCardDetails = ({ cardId }) => {
               {changeOrLeaveSessionMessage}
             </Button>
           </>
-        ) : null}
+        ) : null} */}
       </>
       }
     </span>
