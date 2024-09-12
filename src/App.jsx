@@ -98,7 +98,6 @@ export const App = () => {
 
   // footer content start
   React.useEffect(() => {
-    const siteName = getConfig().SITE_NAME; // Fetch site name from configuration
     const appendFooterContent = () => {
       if (document.querySelector('.course-list-title') && !document.querySelector('.tab-link-container')) {
         if (!document.querySelector('.faq_tag')) {
