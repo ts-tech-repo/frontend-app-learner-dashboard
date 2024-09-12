@@ -91,6 +91,11 @@ const messages = defineMessages({
     defaultMessage: '{siteName}',
     description: 'Header text with site name for logistration MFE pages',
   },
+  'mfe_data': {
+    id: 'mfe_data',
+    defaultMessage: '{siteName} Dashboard - {location}, {year} | Base URL: {baseUrl}, Password Reset Link: {passwordResetLink}, Discussions URL: {discussionsMfeUrl}',
+    description: 'Header text with site name, location, year, base URL, password reset support link, and discussions URL',
+  },
 });
 
 export default messages;
