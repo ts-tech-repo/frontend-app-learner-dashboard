@@ -36,20 +36,20 @@ export const App = () => {
   const { formatMessage } = useIntl();
 
   // Fetch multiple config values
-  const siteName = getConfig().SITE_NAME;
-  const baseUrl = getConfig().BASE_URL;
-  const passwordResetLink = getConfig().PASSWORD_RESET_SUPPORT_LINK;
+  // const siteName = getConfig().SITE_NAME;
+  // const baseUrl = getConfig().BASE_URL;
+  // const passwordResetLink = getConfig().PASSWORD_RESET_SUPPORT_LINK;
   const discussionsMfeUrl = getConfig().DISCUSSIONS_MFE_BASE_URL;
 
   // Format message with all dynamic values
-  const mfe_fetched_data = formatMessage(messages['with.site.mfe_data'], {
-    siteName,
-    baseUrl,
-    passwordResetLink,
-    discussionsMfeUrl,
-  });
+  // const mfe_fetched_data = formatMessage(messages['with.site.mfe_data'], {
+  //   siteName,
+  //   baseUrl,
+  //   passwordResetLink,
+  //   discussionsMfeUrl,
+  // });
   
-  console.log(mfe_fetched_data); 
+  console.log(discussionsMfeUrl); 
   const isFailed = {
     initialize: reduxHooks.useRequestIsFailed(RequestKeys.initialize),
     refreshList: reduxHooks.useRequestIsFailed(RequestKeys.refreshList),
