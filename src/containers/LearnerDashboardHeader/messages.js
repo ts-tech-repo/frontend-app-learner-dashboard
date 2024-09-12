@@ -92,9 +92,9 @@ const messages = defineMessages({
     description: 'Header text with site name for logistration MFE pages',
   },
   'with.site.mfe_data': {
-    id: 'with.site.mfe_data',
-    defaultMessage: '{siteName} Dashboard - {location}, {year} | Base URL: {baseUrl}, Password Reset Link: {passwordResetLink}, Terms and condition: {termAndCondition}',
-    description: 'Header text with site name, location, year, base URL, password reset support link, and discussions URL',
+  id: 'with.site.mfe_data',
+  defaultMessage: '{siteName} Dashboard - {location}, {year} | Terms and Conditions: {termsAndConditions}, FAQ: {faq}, Student Handbook: {studentHandbook}, Support: {support}',
+  description: 'Header text with site name, location, year, terms and conditions URL, FAQ URL, student handbook URL, and support URL',
   },
 });
 

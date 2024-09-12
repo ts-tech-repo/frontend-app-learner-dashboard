@@ -35,21 +35,14 @@ export const App = () => {
   const { authenticatedUser } = React.useContext(AppContext);
   const { formatMessage } = useIntl();
 
-  // Fetch multiple config values
-  // const siteName = getConfig().SITE_NAME;
-  // const baseUrl = getConfig().BASE_URL;
-  // const passwordResetLink = getConfig().PASSWORD_RESET_SUPPORT_LINK;
-  const termAndCondition = getConfig().TnC;
-
-  // Format message with all dynamic values
-  // const mfe_fetched_data = formatMessage(messages['with.site.mfe_data'], {
-  //   siteName,
-  //   baseUrl,
-  //   passwordResetLink,
-  //   termAndCondition,
-  // });
+  // Footer links config values
+  const termsAndConditions = getConfig().TnC;
+  const faq = getConfig().FAQ;
+  const studentHandbook = getConfig().STUDENT_HANDBOOK;
+  const support = getConfig().INFO_EMAIL;
+  const siteName = getConfig().SITE_NAME;
   
-  console.log(termAndCondition); 
+  console.log(termsAndConditions,faq,studentHandbook,support,siteName); 
   const isFailed = {
     initialize: reduxHooks.useRequestIsFailed(RequestKeys.initialize),
     refreshList: reduxHooks.useRequestIsFailed(RequestKeys.refreshList),
@@ -105,6 +98,7 @@ export const App = () => {
 
   // footer content start
   React.useEffect(() => {
+    const siteName = getConfig().SITE_NAME; // Fetch site name from configuration
     const appendFooterContent = () => {
       if (document.querySelector('.course-list-title') && !document.querySelector('.tab-link-container')) {
         if (!document.querySelector('.faq_tag')) {
@@ -112,20 +106,20 @@ export const App = () => {
           if (footerElement) {
             footerElement.innerHTML += `
               <div class="faq-div">
-                <a target="_blank" href="${termAndCondition}">Program Terms and Conditions</a>
-                <a class="faq_tag" target="_blank" href="https://cdn.emasters.talentsprint.com/static/faq_emasters/faqs.html">Program FAQs</a>
-                <a href="https://www.iitk.ac.in/doaa/data/eMasters-Student-Handbook.pdf" target="_blank" class="student-handbook">Student Handbook</a>
+                <a target="_blank" href="${termsAndConditions}">Program Terms and Conditions</a>
+                <a class="faq_tag" target="_blank" href="${faq}">Program FAQs</a>
+                <a href="${studentHandbook}" target="_blank" class="student-handbook">Student Handbook</a>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                   <path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z" fill="#15376d"/>
                 </svg>
-                <a href="mailto:emasters.support@ipearl.ai">emasters.support@ipearl.ai</a>
+                <a href="mailto:${support}">${support}</a>
               </div>
               <a class="edx-tag" href="https://open.edx.org">
                 <img src="https://logos.openedx.org/open-edx-logo-tag.png" alt="Powered by Open edX" width="175">
               </a>
             `;
             document.querySelector('footer.footer').innerHTML += `
-              <p>© IIT Kanpur eMasters Degree. All rights reserved except where noted. edX, Open edX, and their respective logos are registered trademarks of edX Inc.</p>
+              <p>© ${siteName}. All rights reserved except where noted. edX, Open edX, and their respective logos are registered trademarks of edX Inc.</p>
             `;
           }
         }
@@ -139,7 +133,7 @@ export const App = () => {
       }
     }, 500);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [termsAndConditions, faq, studentHandbook, support, siteName]);
   // footer content end
 
   return (
