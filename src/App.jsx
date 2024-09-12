@@ -42,7 +42,7 @@ export const App = () => {
   const discussionsMfeUrl = getConfig().DISCUSSIONS_MFE_BASE_URL;
 
   // Format message with all dynamic values
-  const mfe_fetched_data = formatMessage(messages['mfe_data'], {
+  const mfe_fetched_data = formatMessage(messages['with.site.mfe_data'], {
     siteName,
     baseUrl,
     passwordResetLink,
