@@ -93,7 +93,7 @@ const messages = defineMessages({
   },
   'with.site.mfe_data': {
     id: 'with.site.mfe_data',
-    defaultMessage: '{siteName} Dashboard - {location}, {year} | Base URL: {baseUrl}, Password Reset Link: {passwordResetLink}, Discussions URL: {discussionsMfeUrl}',
+    defaultMessage: '{siteName} Dashboard - {location}, {year} | Base URL: {baseUrl}, Password Reset Link: {passwordResetLink}, Terms and condition: {termAndCondition}',
     description: 'Header text with site name, location, year, base URL, password reset support link, and discussions URL',
   },
 });

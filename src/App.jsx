@@ -39,17 +39,17 @@ export const App = () => {
   // const siteName = getConfig().SITE_NAME;
   // const baseUrl = getConfig().BASE_URL;
   // const passwordResetLink = getConfig().PASSWORD_RESET_SUPPORT_LINK;
-  const discussionsMfeUrl = getConfig().DISCUSSIONS_MFE_BASE_URL;
+  const termAndCondition = getConfig().TnC;
 
   // Format message with all dynamic values
   // const mfe_fetched_data = formatMessage(messages['with.site.mfe_data'], {
   //   siteName,
   //   baseUrl,
   //   passwordResetLink,
-  //   discussionsMfeUrl,
+  //   termAndCondition,
   // });
   
-  console.log(discussionsMfeUrl); 
+  console.log(termAndCondition); 
   const isFailed = {
     initialize: reduxHooks.useRequestIsFailed(RequestKeys.initialize),
     refreshList: reduxHooks.useRequestIsFailed(RequestKeys.refreshList),
@@ -112,7 +112,7 @@ export const App = () => {
           if (footerElement) {
             footerElement.innerHTML += `
               <div class="faq-div">
-                <a target="_blank" href="https://static.talentsprint.com/extras/terms_condition.pdf">Program Terms and Conditions</a>
+                <a target="_blank" href="${termAndCondition}">Program Terms and Conditions</a>
                 <a class="faq_tag" target="_blank" href="https://cdn.emasters.talentsprint.com/static/faq_emasters/faqs.html">Program FAQs</a>
                 <a href="https://www.iitk.ac.in/doaa/data/eMasters-Student-Handbook.pdf" target="_blank" class="student-handbook">Student Handbook</a>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
