@@ -102,7 +102,7 @@ export const App = () => {
           const footerElement = document.querySelector('footer.footer .flex-grow-1');
           if (footerElement) {
             const studentHandbookLink = siteName === "IIT Kanpur eMasters Degree" 
-              ? `<a href="${studentHandbook}" target="_blank" class="student-handbook">Student Handbook</a> <a class="faq_tag" target="_blank" href="${faq}">Program FAQs</a>`
+              ? `<a class="faq_tag" target="_blank" href="${faq}">Program FAQs</a> <a href="${studentHandbook}" target="_blank" class="student-handbook">Student Handbook</a> `
               : '';
 
             footerElement.innerHTML += `
