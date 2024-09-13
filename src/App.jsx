@@ -129,9 +129,9 @@ export const App = () => {
     };
 
     const intervalId = setInterval(() => {
-      if (document.querySelector('footer.footer .flex-grow-1')) {
+      if ($('footer.footer .flex-grow-1').length && $('footer.footer .flex-grow-1').is(':empty')) {
         appendFooterContent();
-        clearInterval(intervalId);
+        clearInterval(intervalId); 
       }
     }, 500);
     return () => clearInterval(intervalId);
