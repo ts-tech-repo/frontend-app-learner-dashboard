@@ -102,18 +102,17 @@ export const App = () => {
           const footerElement = document.querySelector('footer.footer .flex-grow-1');
           if (footerElement) {
             const studentHandbookLink = siteName === "IIT Kanpur eMasters Degree" 
-              ? `<a href="${studentHandbook}" target="_blank" class="student-handbook">Student Handbook</a>`
+              ? `<a href="${studentHandbook}" target="_blank" class="student-handbook">Student Handbook</a> <a class="faq_tag" target="_blank" href="${faq}">Program FAQs</a>`
               : '';
 
             footerElement.innerHTML += `
               <div class="faq-div">
-                <a target="_blank" href="${termsAndConditions}">Program Terms and Conditions</a>
-                <a class="faq_tag" target="_blank" href="${faq}">Program FAQs</a>
+                <a target="_blank" class='conditions' href="${termsAndConditions}">Program Terms and Conditions</a>
                 ${studentHandbookLink}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                   <path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z" fill="#15376d"/>
                 </svg>
-                <a href="mailto:${support}">${support}</a>
+                <a class='email_link' href="mailto:${support}">${support}</a>
               </div>
               <a class="edx-tag" href="https://open.edx.org">
                 <img src="https://logos.openedx.org/open-edx-logo-tag.png" alt="Powered by Open edX" width="175">
