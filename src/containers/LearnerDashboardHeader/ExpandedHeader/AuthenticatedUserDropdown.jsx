@@ -11,6 +11,7 @@ import messages from '../messages';
 
 export const AuthenticatedUserDropdown = () => {
   const { formatMessage } = useIntl();
+  const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
   const { authenticatedUser } = React.useContext(AppContext);
   const dashboard = reduxHooks.useEnterpriseDashboardData();
 
@@ -64,9 +65,9 @@ export const AuthenticatedUserDropdown = () => {
             </Dropdown.Item>
           )}
           <Dropdown.Divider />
-          <Dropdown.Item target="_blank" href="https://emasters.iitk.ac.in/report/login">
+          {siteNameMessage === "IIT Kanpur eMasters Degree" ? <Dropdown.Item target="_blank" href="https://emasters.iitk.ac.in/report/login">
             Orders and Payments
-          </Dropdown.Item>
+          </Dropdown.Item> : ''}
           <Dropdown.Item href={getConfig().LOGOUT_URL}>
             {formatMessage(messages.signOut)}
           </Dropdown.Item>

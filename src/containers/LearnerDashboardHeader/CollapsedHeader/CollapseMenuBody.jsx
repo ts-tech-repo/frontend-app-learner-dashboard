@@ -17,7 +17,6 @@ import messages from '../messages';
 export const CollapseMenuBody = ({ isOpen }) => {
   const { formatMessage } = useIntl();
   const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
-  console.log(siteNameMessage);
   
   const { authenticatedUser } = React.useContext(AppContext);
 
@@ -34,9 +33,8 @@ export const CollapseMenuBody = ({ isOpen }) => {
         const quickLinkElement = document.querySelector('.quick-link-tag');
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
-            const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
-            setEmasterTitle(`eMasters in ${textBeforeHyphen}`);
-            setCertificateTitle(textBeforeHyphen);
+            setEmasterTitle(`eMasters in ${fullText}`);
+            setCertificateTitle(fullText);
             clearInterval(interval);
         }
     }, 100);
@@ -105,13 +103,14 @@ export const CollapseMenuBody = ({ isOpen }) => {
                 {formatMessage(messages.orderHistory)}
               </Button>
             )}
-            <Button
+            {siteNameMessage === "IIT Kanpur eMasters Degree" ? <Button
               as="a"
               href="https://emasters.iitk.ac.in/report/dashboard"
               variant="inverse-primary"
             >
               Orders and Payments
-            </Button>
+            </Button> : '' }
+            
             <Button
               as="a"
               href={getConfig().LOGOUT_URL}
