@@ -98,7 +98,6 @@ export const App = () => {
   // footer content start
   React.useEffect(() => {
     const appendFooterContent = () => {
-      if (document.querySelector('.course-list-title') && !document.querySelector('.tab-link-container')) {
         if (!document.querySelector('.faq_tag')) {
           const footerElement = document.querySelector('footer.footer .flex-grow-1');
           if (footerElement) {
@@ -125,7 +124,6 @@ export const App = () => {
             `;
           }
         }
-      }
     };
 
     const intervalId = setInterval(() => {
