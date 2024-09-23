@@ -33,7 +33,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
         const quickLinkElement = document.querySelector('.quick-link-tag');
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
-            setEmasterTitle(`eMasters in ${fullText}`);
+            setEmasterTitle(fullText);
             setCertificateTitle(fullText);
             clearInterval(interval);
         }
