@@ -26,7 +26,7 @@ export const CourseCardTitle = ({ cardId }) => {
     <h3>
       {disableCourseTitle ? (
         <span className="course-card-title" data-testid="CourseCardTitle">
-          {siteNameMessage === "IIT Kanpur eMasters Degree" ? courseName : extractedCourse}
+          {siteNameMessage === "IIT Kanpur eMasters Degree" ?  extractedCourse : courseName}
         </span>
       ) : (
         <a
