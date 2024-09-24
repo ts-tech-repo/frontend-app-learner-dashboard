@@ -13,6 +13,7 @@ const { courseTitleClicked } = track.course;
 export const CourseCardTitle = ({ cardId }) => {
   const { formatMessage } = useIntl();
   const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
+  const { bannerImgSrc } = reduxHooks.useCardCourseData(cardId);
   const { courseName } = reduxHooks.useCardCourseData(cardId);
   const { homeUrl } = reduxHooks.useCardCourseRunData(cardId);
   const extractedCourse = courseName.includes("-") ? courseName.split(/-(.+)/)[1].trim() : courseName;
@@ -27,7 +28,11 @@ export const CourseCardTitle = ({ cardId }) => {
     <h3>
       {disableCourseTitle ? (
         <span className="course-card-title" data-testid="CourseCardTitle">
-          {siteNameMessage === "IIT Kanpur eMasters Degree" ?  extractedCourse : courseName}
+          {siteNameMessage === "IIT Kanpur eMasters Degree" && bannerImgSrc.includes("marker") 
+            ? courseName 
+            : (siteNameMessage === "IIT Kanpur eMasters Degree" 
+              ? extractedCourse 
+              : courseName)}
         </span>
       ) : (
         <a
