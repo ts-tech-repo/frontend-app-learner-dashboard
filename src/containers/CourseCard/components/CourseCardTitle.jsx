@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import track from 'tracking';
 import { reduxHooks } from 'hooks';
 import useActionDisabledState from './hooks';
+import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import messages from '../../LearnerDashboardHeader/messages';
 
