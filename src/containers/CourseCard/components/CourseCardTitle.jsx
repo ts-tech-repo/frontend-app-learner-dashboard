@@ -41,7 +41,11 @@ export const CourseCardTitle = ({ cardId }) => {
           data-testid="CourseCardTitle"
           onClick={handleTitleClicked}
         >
-          {extractedCourse}
+         {siteNameMessage === "IIT Kanpur eMasters Degree" && bannerImgSrc.includes("marker") 
+            ? courseName 
+            : (siteNameMessage === "IIT Kanpur eMasters Degree" 
+              ? extractedCourse 
+              : courseName)}
         </a>
       )}
     </h3>
