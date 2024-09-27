@@ -23,16 +23,14 @@ export const ExpandedHeader = () => {
 
   const exploreCoursesClick = findCoursesNavClicked(urls.baseAppUrl(courseSearchUrl));
 
-  const [emasterTitle, setEmasterTitle] = React.useState("IIT Kanpur eMasters Degree");
-  const [certificateTitle, setCertificateTitle] = React.useState(siteNameMessage);
+  const [headerTitle, setHeaderTitle] = React.useState("IIT Kanpur eMasters Degree");
 
   React.useEffect(() => {
     const interval = setInterval(() => {
         const quickLinkElement = document.querySelector('.quick-link-tag');
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
-            setEmasterTitle(fullText);
-            setCertificateTitle(fullText);
+            setHeaderTitle(fullText);
             clearInterval(interval);
         }
     }, 100);
@@ -51,7 +49,7 @@ export const ExpandedHeader = () => {
             variant="inverse-primary"
             className="p-4 course-link"
           >
-            {siteNameMessage === "IIT Kanpur eMasters Degree" ? emasterTitle : certificateTitle}
+            {headerTitle}
           </Button>
           {/*<Button
             as="a"

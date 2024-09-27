@@ -25,16 +25,14 @@ export const CollapseMenuBody = ({ isOpen }) => {
 
   const exploreCoursesClick = findCoursesNavDropdownClicked(urls.baseAppUrl(courseSearchUrl));
 
-  const [emasterTitle, setEmasterTitle] = React.useState("IIT Kanpur eMasters Degree");
-  const [certificateTitle, setCertificateTitle] = React.useState(siteNameMessage);
+  const [headerTitle, setHeaderTitle] = React.useState(siteNameMessage);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
         const quickLinkElement = document.querySelector('.quick-link-tag');
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
-            setEmasterTitle(fullText);
-            setCertificateTitle(fullText);
+            setHeaderTitle(fullText);
             clearInterval(interval);
         }
     }, 100);
@@ -46,7 +44,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
     isOpen && (
       <div className="d-flex flex-column shadow-sm nav-small-menu">
         <Button as="a" variant="inverse-primary">
-        {siteNameMessage === "IIT Kanpur eMasters Degree" ? emasterTitle : certificateTitle}
+        {headerTitle}
         </Button>
         {/* <Button as="a" href={urls.programsUrl()} variant="inverse-primary">
           {formatMessage(messages.program)}
