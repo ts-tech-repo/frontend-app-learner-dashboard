@@ -16,6 +16,8 @@ import messages from '../messages';
 
 export const CollapseMenuBody = ({ isOpen }) => {
   const { formatMessage } = useIntl();
+  const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
+  
   const { authenticatedUser } = React.useContext(AppContext);
 
   const dashboard = reduxHooks.useEnterpriseDashboardData();
@@ -23,17 +25,14 @@ export const CollapseMenuBody = ({ isOpen }) => {
 
   const exploreCoursesClick = findCoursesNavDropdownClicked(urls.baseAppUrl(courseSearchUrl));
 
-  const [quickLinkText, setQuickLinkText] = React.useState("IIT Kanpur eMasters Degree");
+  const [headerTitle, setHeaderTitle] = React.useState(siteNameMessage);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
         const quickLinkElement = document.querySelector('.quick-link-tag');
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
-            const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
-            if (!fullText.startsWith('QUINCE') && !fullText.startsWith('EMIITK')) {
-                setQuickLinkText(`eMasters in ${textBeforeHyphen} `);
-            }
+            setHeaderTitle(fullText);
             clearInterval(interval);
         }
     }, 100);
@@ -45,7 +44,7 @@ export const CollapseMenuBody = ({ isOpen }) => {
     isOpen && (
       <div className="d-flex flex-column shadow-sm nav-small-menu">
         <Button as="a" variant="inverse-primary">
-          {quickLinkText}
+        {headerTitle}
         </Button>
         {/* <Button as="a" href={urls.programsUrl()} variant="inverse-primary">
           {formatMessage(messages.program)}
@@ -102,13 +101,14 @@ export const CollapseMenuBody = ({ isOpen }) => {
                 {formatMessage(messages.orderHistory)}
               </Button>
             )}
-            <Button
+            {siteNameMessage === "IIT Kanpur eMasters Degree" ? <Button
               as="a"
               href="https://emasters.iitk.ac.in/report/dashboard"
               variant="inverse-primary"
             >
               Orders and Payments
-            </Button>
+            </Button> : '' }
+            
             <Button
               as="a"
               href={getConfig().LOGOUT_URL}

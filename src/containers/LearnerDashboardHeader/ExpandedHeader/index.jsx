@@ -16,22 +16,20 @@ import BrandLogo from '../BrandLogo';
 
 export const ExpandedHeader = () => {
   const { formatMessage } = useIntl();
+  const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
   const { courseSearchUrl } = reduxHooks.usePlatformSettingsData();
   const isCollapsed = useIsCollapsed();
 
   const exploreCoursesClick = findCoursesNavClicked(urls.baseAppUrl(courseSearchUrl));
 
-  const [quickLinkText, setQuickLinkText] = React.useState("IIT Kanpur eMasters Degree");
+  const [headerTitle, setHeaderTitle] = React.useState(siteNameMessage);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
         const quickLinkElement = document.querySelector('.quick-link-tag');
         if (quickLinkElement) {
             const fullText = quickLinkElement.textContent.trim();
-            const textBeforeHyphen = fullText.includes('-') ? fullText.split('-')[0] : fullText;
-            if (!fullText.startsWith('QUINCE') && !fullText.startsWith('EMIITK')) {
-                setQuickLinkText(`eMasters in ${textBeforeHyphen}`);
-            }
+            setHeaderTitle(fullText);
             clearInterval(interval);
         }
     }, 100);
@@ -50,7 +48,7 @@ export const ExpandedHeader = () => {
             variant="inverse-primary"
             className="p-4 course-link"
           >
-            {quickLinkText}
+            {headerTitle}
           </Button>
           {/*<Button
             as="a"

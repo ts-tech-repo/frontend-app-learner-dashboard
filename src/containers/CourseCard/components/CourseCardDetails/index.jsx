@@ -6,9 +6,14 @@ import { Button } from '@edx/paragon';
 import useCardDetailsData from './hooks';
 import './index.scss';
 import { reduxHooks } from 'hooks';
+import { getConfig } from '@edx/frontend-platform';
+import { useIntl } from '@edx/frontend-platform/i18n';
+import messages from '../../../LearnerDashboardHeader/messages';
 
 const CourseCardDetails = ({ cardId }) => {
   const { homeUrl } = reduxHooks.useCardCourseRunData(cardId);
+  const { formatMessage } = useIntl();
+  const siteNameMessage = formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME });
 
   const extractCourseDetails = () => {
     if (!homeUrl) return { org: '', courseCode: '' };
@@ -35,24 +40,9 @@ const CourseCardDetails = ({ cardId }) => {
 
   return (
     <span className="small" data-testid="CourseCardDetails">
-      <div className='quick-link-tag' style={{display:"none"}}> {providerName}-{courseNumber}</div>
-      {org === "EMIITK" ? courseCode :
-      <>
-        {' • '}
-        {providerName} • {courseNumber}
-        {!(isEntitlement && !isFulfilled) && accessMessage && (
-          ` • ${accessMessage}`
-        )}
-        {isEntitlement && isFulfilled && canChange ? (
-          <>
-            {' • '}
-            <Button variant="link" size="inline" className="m-0 p-0" onClick={openSessionModal}>
-              {changeOrLeaveSessionMessage}
-            </Button>
-          </>
-        ) : null}
-      </>
-      }
+      <div className='quick-link-tag' style={{display:"none"}}> {providerName}</div>
+      <div className='course-number-display-string' style={{display:"none"}}>{courseNumber}</div>
+      {siteNameMessage === "IIT Kanpur eMasters Degree" ? courseCode : '' }
     </span>
   );
 };
