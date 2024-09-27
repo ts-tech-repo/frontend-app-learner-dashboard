@@ -38,24 +38,7 @@ const CourseCardDetails = ({ cardId }) => {
       <div className='quick-link-tag' style={{display:"none"}}> {providerName}</div>
       <div className='course-number-display-string' style={{display:"none"}}>{courseNumber}</div>
       {
-      // org === "CMU" ?
        courseCode 
-
-      // : <>
-      //   {' • '}
-      //   {providerName} • {courseNumber}
-      //   {!(isEntitlement && !isFulfilled) && accessMessage && (
-      //     ` • ${accessMessage}`
-      //   )}
-      //   {isEntitlement && isFulfilled && canChange ? (
-      //     <>
-      //       {' • '}
-      //       <Button variant="link" size="inline" className="m-0 p-0" onClick={openSessionModal}>
-      //         {changeOrLeaveSessionMessage}
-      //       </Button>
-      //     </>
-      //   ) : null}
-      // </>
       }
     </span>
   );
