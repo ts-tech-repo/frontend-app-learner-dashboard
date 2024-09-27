@@ -22,7 +22,7 @@ export const ExpandedHeader = () => {
 
   const exploreCoursesClick = findCoursesNavClicked(urls.baseAppUrl(courseSearchUrl));
 
-  const [headerTitle, setHeaderTitle] = React.useState("IIT Kanpur eMasters Degree");
+  const [headerTitle, setHeaderTitle] = React.useState(siteNameMessage);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
