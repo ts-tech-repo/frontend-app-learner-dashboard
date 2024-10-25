@@ -45,6 +45,7 @@ export const CourseList = () => {
               </div>
             )}
             <div className="d-flex flex-row flex-grow-1 card_div">
+              {console.log(cardId, visibleList )}
               {visibleList.map(({ cardId }) => (
                 <CourseCard key={cardId} cardId={cardId} />
               ))}
