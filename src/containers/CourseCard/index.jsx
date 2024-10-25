@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Card } from '@edx/paragon';
@@ -16,64 +16,8 @@ import './CourseCard.scss';
 export const CourseCard = ({
   cardId,
 }) => {
-  const { homeUrl } = reduxHooks.useCardCourseRunData(cardId);
-  console.log(homeUrl);
-
   const isCollapsed = useIsCollapsed();
   const orientation = isCollapsed ? 'vertical' : 'horizontal';
-
-  // State to manage course sequence
-  const [courseSequenceArray, setCourseSequenceArray] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
-
-  useEffect(() => {
-    const arrangeCourseSequence = async () => {
-      const searchCourseId = homeUrl.split("/").filter(part => part.startsWith("course-v1:"))[0];
-      document.body.insertAdjacentHTML('beforeend', 
-        `<p id='marker_course_id' style='display:none;'>${searchCourseId}</p>`
-      );
-
-      try {
-        const response = await fetch("https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ course_id: searchCourseId }),
-        });
-
-        const data = await response.json();
-        console.log(data);
-
-        if (data["Status"] === "Ok") {
-          const newCourseSequenceArray = [];
-          document.querySelectorAll(".course-card").forEach((card) => {
-            const courseId = card.querySelector(".pgn__card-wrapper-image-cap").getAttribute("href")
-              .split("/")
-              .filter(part => part.startsWith("course-v1:"))[0];
-
-            console.log(courseId);
-            if (data["course_sequence"].includes(courseId)) {
-              const index = data["course_sequence"].indexOf(courseId);
-              newCourseSequenceArray[index] = card;
-            }
-          });
-          setCourseSequenceArray(newCourseSequenceArray);
-          console.log(courseSequenceArray);
-        } else {
-          if (data["reason"] === "Duplicate Files") {
-            setErrorMessage(data["reason"]);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching course sequence:", error);
-        setErrorMessage("An error occurred while fetching course sequence.");
-      }
-    };
-
-    arrangeCourseSequence();
-  }, [cardId]);
-
   return (
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
       <Card orientation={orientation}>
@@ -96,13 +40,6 @@ export const CourseCard = ({
 {/*           <CourseCardBanners cardId={cardId} /> */}
         </div>
       </Card>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      {/* Render course sequence cards here */}
-      {courseSequenceArray.map((courseCard, index) => (
-        <div key={index} className="course-card">
-          {courseCard} {/* Render the course card */}
-        </div>
-      ))}
     </div>
   );
 };
