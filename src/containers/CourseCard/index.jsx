@@ -39,7 +39,7 @@ export const CourseCard = ({
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ course_id: searchCourseId.replace("course-title-", "") }),
+          body: JSON.stringify({ course_id: searchCourseId }),
         });
 
         const data = await response.json();
