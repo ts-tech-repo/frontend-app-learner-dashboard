@@ -16,6 +16,9 @@ import './CourseCard.scss';
 export const CourseCard = ({
   cardId,
 }) => {
+  const { homeUrl } = reduxHooks.useCardCourseRunData(cardId);
+  console.log(homeUrl);
+
   const isCollapsed = useIsCollapsed();
   const orientation = isCollapsed ? 'vertical' : 'horizontal';
   return (
