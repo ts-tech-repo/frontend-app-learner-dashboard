@@ -28,7 +28,7 @@ export const CourseCard = ({
 
   useEffect(() => {
     const arrangeCourseSequence = async () => {
-      const searchCourseId = "course-v1:QUINCE+TestingCourse+Proctor01";
+      const searchCourseId = homeUrl.split("/").filter(part => part.startsWith("course-v1:"))[0];
       document.body.insertAdjacentHTML('beforeend', 
         `<p id='marker_course_id' style='display:none;'>${searchCourseId}</p>`
       );
