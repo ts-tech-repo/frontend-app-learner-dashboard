@@ -25,47 +25,60 @@ export const useNetworkRequest = (action, args) => {
  */
 export const useInitializeApp = () => {
   const loadData = reduxHooks.useLoadData();
+  
   return module.useNetworkRequest(api.initializeList, {
     requestKey: RequestKeys.initialize,
     onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
       loadData(data);
-      // Prepare form data for course sequence request
-      const formData = new FormData();
-      formData.append('course_id', data.courses[0].courseRun.courseId);
 
-      try {
-        // Fetch the course sequence
-        const courseSequenceResponse = await fetch(
-          "https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", 
-          {
-            method: "POST",
-            body: formData,
+      // Ensure there is at least one course in data before proceeding
+      if (data.length > 0) {
+        const firstCourseId = data[0].courseRun.courseId;
+
+        // Prepare form data for course sequence request with the first courseId
+        const formData = new FormData();
+        formData.append('course_id', firstCourseId);
+
+        try {
+          // Fetch the course sequence
+          const courseSequenceResponse = await fetch(
+            "https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", 
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+
+          const courseSequenceData = await courseSequenceResponse.json();
+
+          if (courseSequenceData.Status === "Ok") {
+            const { course_sequence } = courseSequenceData;
+
+            // Map course_sequence to data
+            const enrichedData = data.map(courseItem => ({
+              ...courseItem,
+              isInSequence: course_sequence.includes(courseItem.courseRun.courseId)
+            }));
+
+            // Log the enriched data or use it as needed
+            console.log('Enriched course data with sequence info:', enrichedData);
+            loadData(enrichedData);
+          } else {
+            console.warn("Unexpected course sequence status:", courseSequenceData.Status);
           }
-        );
-        
-        const courseSequenceData = await courseSequenceResponse.json();
 
-        if (courseSequenceData.Status === "Ok" && courseSequenceData.course_sequence) {
-          console.log("Course sequence fetched successfully:", courseSequenceData.course_sequence);
-
-          // Rearrange data based on course_sequence
-          const reorderedData = courseSequenceData.course_sequence.map(sequenceId => 
-            data.find(course => course.courseRun.courseId === sequenceId)
-          ).filter(Boolean); // filter out any undefined results
-
-          console.log('Reordered data:', reorderedData);
-          loadData(reorderedData); // Load reordered data
-          
-        } else {
-          console.error('Failed to fetch course sequence:', courseSequenceData.Status);
+        } catch (error) {
+          console.error('Error fetching course sequence:', error);
         }
-      } catch (error) {
-        console.error('Error fetching course sequence:', error);
+      } else {
+        console.warn("No courses available in data to fetch sequence.");
       }
     },
   });
 };
+
+
 
 
 export const useNewEntitlementEnrollment = (cardId) => {
