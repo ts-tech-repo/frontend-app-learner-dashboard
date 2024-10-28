@@ -30,48 +30,43 @@ export const useInitializeApp = () => {
     onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
       loadData(data);
-      // Make the API call for course sequence on success
+      // Prepare form data for course sequence request
       const formData = new FormData();
       formData.append('course_id', data.courses[0].courseRun.courseId);
-      console.log(data.courses[0].courseRun.courseId);
-      
-      const courseSequenceResponse = await fetch("https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", {
-        method: "POST",
-        body: formData,
-      });
 
-      // Parse the response
-      const courseSequenceData = await courseSequenceResponse.json();
+      try {
+        // Fetch the course sequence
+        const courseSequenceResponse = await fetch(
+          "https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", 
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        
+        const courseSequenceData = await courseSequenceResponse.json();
 
-      // Check if the response status is "Ok" and if course_sequence exists
-      if (courseSequenceData.Status === "Ok") {
-        console.log('coming here')
-        if (Array.isArray(courseSequenceData.course_sequence)) {
-          console.log('Course sequence data:', courseSequenceData.course_sequence);
+        if (courseSequenceData.Status === "Ok" && courseSequenceData.course_sequence) {
+          console.log("Course sequence fetched successfully:", courseSequenceData.course_sequence);
 
-          // Rearranging courses based on course_sequence response
-          const courseIdOrder = new Map(courseSequenceData.course_sequence.map((course, index) => [course.course.id, index])); // Create a Map for quick lookup
-          const sortedCourses = [...data.courses].sort((a, b) => {
-            return (courseIdOrder.get(a.courseRun.courseId) || Infinity) - (courseIdOrder.get(b.courseRun.courseId) || Infinity);
-          });
-          console.log('Sorted courses loaded:', sortedCourses); // Log the sorted courses
-          loadData({ ...data, courses: sortedCourses }); // Load the sorted courses
-        } else if (Array.isArray(courseSequenceData.course_sequence) && courseSequenceData.course_sequence.every(course => typeof course === 'object' && 'course' in course)) {
-          const courseIdOrder = new Map(courseSequenceData.course_sequence.map((course, index) => [course.course.id, index])); // Create a Map for quick lookup
-          const sortedCourses = [...data.courses].sort((a, b) => {
-            return (courseIdOrder.get(a.courseRun.courseId) || Infinity) - (courseIdOrder.get(b.courseRun.courseId) || Infinity);
-          });
-          console.log('Sorted courses loaded:', sortedCourses); // Log the sorted courses
-          loadData({ ...data, courses: sortedCourses }); // Load the sorted courses
+          // Rearrange data based on course_sequence
+          const reorderedData = courseSequenceData.course_sequence.map(sequenceId => 
+            data.find(course => course.courseRun.courseId === sequenceId)
+          ).filter(Boolean); // filter out any undefined results
+
+          console.log('Reordered data:', reorderedData);
+          loadData(reorderedData); // Load reordered data
+          
         } else {
-          console.error('Course sequence is not an array:', courseSequenceData.course_sequence);
+          console.error('Failed to fetch course sequence:', courseSequenceData.Status);
         }
-      } else {
-        console.error('Failed to fetch course sequence:', courseSequenceData.Status);
+      } catch (error) {
+        console.error('Error fetching course sequence:', error);
       }
     },
   });
 };
+
 
 export const useNewEntitlementEnrollment = (cardId) => {
   const { uuid } = reduxHooks.useCardEntitlementData(cardId);
