@@ -40,9 +40,11 @@ export const useInitializeApp = () => {
         body: formData,
       });
 
-      // Check if the response status is "Ok"
+      // Parse the response
       const courseSequenceData = await courseSequenceResponse.json();
-      if (courseSequenceData.Status === "Ok") {
+
+      // Check if the response status is "Ok" and if data exists
+      if (courseSequenceData.Status === "Ok" && Array.isArray(courseSequenceData.data)) {
         console.log('Course sequence data one:', courseSequenceData.data);
 
         // Rearranging courses based on course_sequence response
@@ -50,9 +52,10 @@ export const useInitializeApp = () => {
         const sortedCourses = [...data.courses].sort((a, b) => {
           return (courseIdOrder.get(a.courseRun.courseId) || Infinity) - (courseIdOrder.get(b.courseRun.courseId) || Infinity);
         });
+        console.log('Sorted courses loaded:', sortedCourses); // Log the sorted courses
         loadData({ ...data, courses: sortedCourses }); // Load the sorted courses
       } else {
-        console.error('Failed to fetch course sequence:', courseSequenceData.Status);
+        console.error('Failed to fetch course sequence or data is not an array:', courseSequenceData.Status);
       }
     },
   });
