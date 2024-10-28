@@ -30,6 +30,12 @@ export const CourseCard = ({
   useEffect(() => {
     const arrangeCourseSequence = async () => {
       const searchCourseId = homeUrl.split("/").filter(part => part.startsWith("course-v1:"))[0];
+      console.log("Search Course ID:", searchCourseId); // Log searchCourseId to check its value
+      if (!searchCourseId) {
+        setErrorMessage("Course ID is missing.");
+        return;
+      }
+
       document.body.insertAdjacentHTML('beforeend', 
         `<p id='marker_course_id' style='display:none;'>${searchCourseId}</p>`
       );
@@ -60,7 +66,7 @@ export const CourseCard = ({
             }
           });
           setCourseSequenceArray(newCourseSequenceArray);
-          console.log(courseSequenceArray);
+          console.log(courseSequenceArray); // This may log the previous state
         } else {
           if (data["reason"] === "Duplicate Files") {
             setErrorMessage(data["reason"]);
@@ -73,7 +79,7 @@ export const CourseCard = ({
     };
 
     arrangeCourseSequence();
-  }, [cardId]);
+  }, [cardId, homeUrl]);
 
   return (
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
