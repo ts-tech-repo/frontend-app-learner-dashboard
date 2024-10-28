@@ -53,18 +53,20 @@ export const CourseCard = ({
         if (data["Status"] === "Ok") {
           const newCourseSequenceArray = [];
           document.querySelectorAll(".course-card").forEach((card) => {
-            const courseId = card.querySelector(".pgn__card-wrapper-image-cap").getAttribute("href")
-              .split("/")
+            const courseId = card.querySelector(".pgn__card-wrapper-image-cap")?.getAttribute("href")
+              ?.split("/")
               .filter(part => part.startsWith("course-v1:"))[0];
 
-            console.log(courseId);
-            if (data["course_sequence"].includes(courseId)) {
+            console.log("Extracted Course ID:", courseId); // Log extracted courseId
+            console.log("Available Course Sequence:", data["course_sequence"]); // Log available course sequence
+
+            if (courseId && data["course_sequence"].includes(courseId)) {
               const index = data["course_sequence"].indexOf(courseId);
               newCourseSequenceArray[index] = card;
             }
           });
           setCourseSequenceArray(newCourseSequenceArray);
-          console.log(courseSequenceArray); // This may log the previous state
+          console.log("New Course Sequence Array:", newCourseSequenceArray); // Log the new array
         } else {
           if (data["reason"] === "Duplicate Files") {
             setErrorMessage(data["reason"]);
