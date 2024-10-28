@@ -40,12 +40,11 @@ export const CourseCard = ({
       );
 
       try {
+        const formData = new FormData();
+        formData.append('course_id', searchCourseId);
         const response = await fetch("https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", {
           method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ course_id: searchCourseId }),
+          body: formData,
         });
 
         const data = await response.json();
