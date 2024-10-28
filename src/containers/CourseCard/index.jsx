@@ -104,13 +104,7 @@ export const CourseCard = ({
 {/*           <CourseCardBanners cardId={cardId} /> */}
         </div>
       </Card>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      {/* Render course sequence cards here */}
-      {courseSequenceArray.map((courseId, index) => (
-        <div key={index} className="course-card">
-          test
-        </div>
-      ))}
+
     </div>
   );
 };
