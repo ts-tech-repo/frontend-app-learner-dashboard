@@ -108,8 +108,7 @@ export const CourseCard = ({
       {/* Render course sequence cards here */}
       {courseSequenceArray.map((courseId, index) => (
         <div key={index} className="course-card">
-          {/* Render the course card component based on courseId */}
-          <CourseCardComponent courseId={courseId} /> {/* Replace with your actual component */}
+          test
         </div>
       ))}
     </div>
