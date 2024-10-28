@@ -44,18 +44,23 @@ export const useInitializeApp = () => {
       const courseSequenceData = await courseSequenceResponse.json();
 
       // Check if the response status is "Ok" and if course_sequence exists
-      if (courseSequenceData.Status === "Ok" && Array.isArray(courseSequenceData.course_sequence)) {
-        console.log('Course sequence data:', courseSequenceData.course_sequence);
+      if (courseSequenceData.Status === "Ok") {
+        console('coming here')
+        if (Array.isArray(courseSequenceData.course_sequence)) {
+          console.log('Course sequence data:', courseSequenceData.course_sequence);
 
-        // Rearranging courses based on course_sequence response
-        const courseIdOrder = new Map(courseSequenceData.course_sequence.map((id, index) => [id, index])); // Create a Map for quick lookup
-        const sortedCourses = [...data.courses].sort((a, b) => {
-          return (courseIdOrder.get(a.courseRun.courseId) || Infinity) - (courseIdOrder.get(b.courseRun.courseId) || Infinity);
-        });
-        console.log('Sorted courses loaded:', sortedCourses); // Log the sorted courses
-        loadData({ ...data, courses: sortedCourses }); // Load the sorted courses
+          // Rearranging courses based on course_sequence response
+          const courseIdOrder = new Map(courseSequenceData.course_sequence.map((id, index) => [id, index])); // Create a Map for quick lookup
+          const sortedCourses = [...data.courses].sort((a, b) => {
+            return (courseIdOrder.get(a.courseRun.courseId) || Infinity) - (courseIdOrder.get(b.courseRun.courseId) || Infinity);
+          });
+          console.log('Sorted courses loaded:', sortedCourses); // Log the sorted courses
+          loadData({ ...data, courses: sortedCourses }); // Load the sorted courses
+        } else {
+          console.error('Course sequence is not an array:', courseSequenceData.course_sequence);
+        }
       } else {
-        console.error('Failed to fetch course sequence or data is not an array:', courseSequenceData.Status);
+        console.error('Failed to fetch course sequence:', courseSequenceData.Status);
       }
     },
   });
