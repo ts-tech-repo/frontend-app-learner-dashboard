@@ -51,7 +51,7 @@ export const CourseCard = ({
         console.log(data);
 
         if (data["Status"] === "Ok") {
-          const newCourseSequenceArray = [];
+          const newCourseSequenceArray = new Array(data["course_sequence"].length).fill(null); // Initialize with nulls
           document.querySelectorAll(".course-card").forEach((card) => {
             const courseId = card.querySelector(".pgn__card-wrapper-image-cap")?.getAttribute("href")
               ?.split("/")
@@ -62,10 +62,12 @@ export const CourseCard = ({
 
             if (courseId && data["course_sequence"].includes(courseId)) {
               const index = data["course_sequence"].indexOf(courseId);
-              newCourseSequenceArray[index] = card;
+              newCourseSequenceArray[index] = card; // Assign the card to the correct index
             }
           });
-          setCourseSequenceArray(newCourseSequenceArray);
+
+          // Filter out any null values before setting the state
+          setCourseSequenceArray(newCourseSequenceArray.filter(card => card !== null));
           console.log("New Course Sequence Array:", newCourseSequenceArray); // Log the new array
         } else {
           if (data["reason"] === "Duplicate Files") {
