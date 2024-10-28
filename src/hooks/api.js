@@ -29,15 +29,12 @@ export const useInitializeApp = () => {
     requestKey: RequestKeys.initialize,
     onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
-      loadData(data);
       // Make the API call for course sequence on success
-      const formData = new FormData();
-      formData.append('course_id', data.courses[0].courseRun.courseId);
-      console.log(data.courses[0].courseRun.courseId);
+      const courseIds = data.courses.map(course => course.courseRun.courseId);
       let courseSequenceData;
       try {
         const formData = new FormData();
-        formData.append('course_id', data.courses[0].courseRun.courseId);
+        formData.append('course_id', courseIds.join(','));
         courseSequenceData = await fetch("https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", {
           method: "POST",
           body: formData,
@@ -47,7 +44,21 @@ export const useInitializeApp = () => {
         throw error; // Rethrow the error to be handled by the caller
       }
       const courseSequenceResponse = await courseSequenceData.json();
-      console.log('Course sequence data one:', courseSequenceResponse);
+      console.log('Course sequence data:', courseSequenceResponse);
+
+      // Check if the order of course IDs in the response is different from the original order
+      if (courseSequenceResponse.length !== courseIds.length || courseSequenceResponse.some((id, index) => id !== courseIds[index])) {
+        // Reorder the data based on the course sequence response
+        const reorderedData = courseSequenceResponse.map(id => {
+          const course = data.courses.find(course => course.courseRun.courseId === id);
+          return { ...course, ...data.courses.find(c => c.courseRun.courseId === id) };
+        });
+        console.log('Reordered data based on course sequence:', reorderedData);
+        loadData(reorderedData);
+      } else {
+        console.log('Course sequence order is correct, no reordering needed.');
+        loadData(data);
+      }
     },
   });
 };
