@@ -50,7 +50,14 @@ export const useInitializeApp = () => {
           console.log('Course sequence data:', courseSequenceData.course_sequence);
 
           // Rearranging courses based on course_sequence response
-          const courseIdOrder = new Map(courseSequenceData.course_sequence.map((id, index) => [id, index])); // Create a Map for quick lookup
+          const courseIdOrder = new Map(courseSequenceData.course_sequence.map((course, index) => [course.course.id, index])); // Create a Map for quick lookup
+          const sortedCourses = [...data.courses].sort((a, b) => {
+            return (courseIdOrder.get(a.courseRun.courseId) || Infinity) - (courseIdOrder.get(b.courseRun.courseId) || Infinity);
+          });
+          console.log('Sorted courses loaded:', sortedCourses); // Log the sorted courses
+          loadData({ ...data, courses: sortedCourses }); // Load the sorted courses
+        } else if (Array.isArray(courseSequenceData.course_sequence) && courseSequenceData.course_sequence.every(course => typeof course === 'object' && 'course' in course)) {
+          const courseIdOrder = new Map(courseSequenceData.course_sequence.map((course, index) => [course.course.id, index])); // Create a Map for quick lookup
           const sortedCourses = [...data.courses].sort((a, b) => {
             return (courseIdOrder.get(a.courseRun.courseId) || Infinity) - (courseIdOrder.get(b.courseRun.courseId) || Infinity);
           });
