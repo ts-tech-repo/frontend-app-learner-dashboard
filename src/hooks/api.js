@@ -27,9 +27,18 @@ export const useInitializeApp = () => {
   const loadData = reduxHooks.useLoadData();
   return module.useNetworkRequest(api.initializeList, {
     requestKey: RequestKeys.initialize,
-    onSuccess: ({ data }) => {
+    onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
       loadData(data);
+      // Make the API call for course sequence on success
+      const formData = new FormData();
+      formData.append('course_id', data.courses[0].courseRun.course_id);
+      const courseSequenceData = await fetch("https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", {
+        method: "POST",
+        body: formData,
+      });
+      const courseSequenceResponse = await courseSequenceData.json();
+      console.log('Course sequence data one:', courseSequenceResponse);
     },
   });
 };
