@@ -45,7 +45,7 @@ export const useInitializeApp = () => {
 
       // Check if the response status is "Ok" and if course_sequence exists
       if (courseSequenceData.Status === "Ok") {
-        console('coming here')
+        console.log('coming here')
         if (Array.isArray(courseSequenceData.course_sequence)) {
           console.log('Course sequence data:', courseSequenceData.course_sequence);
 
