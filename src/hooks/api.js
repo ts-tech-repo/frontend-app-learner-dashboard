@@ -34,21 +34,25 @@ export const useInitializeApp = () => {
       const formData = new FormData();
       formData.append('course_id', data.courses[0].courseRun.courseId);
       console.log(data.courses[0].courseRun.courseId);
-      const courseSequenceData = await fetch("https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", {
+      
+      const courseSequenceResponse = await fetch("https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", {
         method: "POST",
         body: formData,
       });
-      const courseSequenceResponse = await courseSequenceData.json();
-      console.log('Course sequence data one:', courseSequenceResponse);
 
-      // Rearranging courses based on course_sequence response
-      if (courseSequenceResponse.Status === "Ok") {
-        const courseIdOrder = new Set(courseSequenceResponse.course_sequence); // Create a Set for quick lookup
-        const sortedCourses = data.courses.sort((a, b) => {
-          return Array.from(courseIdOrder).indexOf(a.courseRun.courseId) - Array.from(courseIdOrder).indexOf(b.courseRun.courseId);
+      // Check if the response status is "Ok"
+      const courseSequenceData = await courseSequenceResponse.json();
+      if (courseSequenceData.Status === "Ok") {
+        console.log('Course sequence data one:', courseSequenceData.data);
+
+        // Rearranging courses based on course_sequence response
+        const courseIdOrder = new Map(courseSequenceData.data.map((id, index) => [id, index])); // Create a Map for quick lookup
+        const sortedCourses = [...data.courses].sort((a, b) => {
+          return (courseIdOrder.get(a.courseRun.courseId) || Infinity) - (courseIdOrder.get(b.courseRun.courseId) || Infinity);
         });
-        console.log('Sorted courses:', sortedCourses); // Log the sorted courses
         loadData({ ...data, courses: sortedCourses }); // Load the sorted courses
+      } else {
+        console.error('Failed to fetch course sequence:', courseSequenceData.Status);
       }
     },
   });
