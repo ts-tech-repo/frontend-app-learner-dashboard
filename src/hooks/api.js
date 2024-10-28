@@ -32,11 +32,20 @@ export const useInitializeApp = () => {
       loadData(data);
       // Make the API call for course sequence on success
       const formData = new FormData();
-      formData.append('course_id', data.courses[0].courseRun.course_id);
-      const courseSequenceData = await fetch("https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", {
-        method: "POST",
-        body: formData,
-      });
+      formData.append('course_id', data.courses[0].courseRun.courseId);
+      console.log(data.courses[0].courseRun.courseId);
+      let courseSequenceData;
+      try {
+        const formData = new FormData();
+        formData.append('course_id', data.courses[0].courseRun.courseId);
+        courseSequenceData = await fetch("https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", {
+          method: "POST",
+          body: formData,
+        });
+      } catch (error) {
+        console.error('Failed to fetch course sequence data:', error);
+        throw error; // Rethrow the error to be handled by the caller
+      }
       const courseSequenceResponse = await courseSequenceData.json();
       console.log('Course sequence data one:', courseSequenceResponse);
     },
