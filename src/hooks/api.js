@@ -43,12 +43,12 @@ export const useInitializeApp = () => {
       // Parse the response
       const courseSequenceData = await courseSequenceResponse.json();
 
-      // Check if the response status is "Ok" and if data exists
-      if (courseSequenceData.Status === "Ok" && Array.isArray(courseSequenceData.data)) {
-        console.log('Course sequence data one:', courseSequenceData.data);
+      // Check if the response status is "Ok" and if course_sequence exists
+      if (courseSequenceData.Status === "Ok" && Array.isArray(courseSequenceData.course_sequence)) {
+        console.log('Course sequence data:', courseSequenceData.course_sequence);
 
         // Rearranging courses based on course_sequence response
-        const courseIdOrder = new Map(courseSequenceData.data.map((id, index) => [id, index])); // Create a Map for quick lookup
+        const courseIdOrder = new Map(courseSequenceData.course_sequence.map((id, index) => [id, index])); // Create a Map for quick lookup
         const sortedCourses = [...data.courses].sort((a, b) => {
           return (courseIdOrder.get(a.courseRun.courseId) || Infinity) - (courseIdOrder.get(b.courseRun.courseId) || Infinity);
         });
