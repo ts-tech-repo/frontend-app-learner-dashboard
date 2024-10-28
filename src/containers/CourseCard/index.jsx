@@ -51,7 +51,7 @@ export const CourseCard = ({
         console.log(data);
 
         if (data["Status"] === "Ok") {
-          const newCourseSequenceArray = new Array(data["course_sequence"].length).fill(null); // Initialize with nulls
+          const newCourseSequenceArray = []; // Initialize as an empty array
           document.querySelectorAll(".course-card").forEach((card) => {
             const courseId = card.querySelector(".pgn__card-wrapper-image-cap")?.getAttribute("href")
               ?.split("/")
@@ -61,13 +61,12 @@ export const CourseCard = ({
             console.log("Available Course Sequence:", data["course_sequence"]); // Log available course sequence
 
             if (courseId && data["course_sequence"].includes(courseId)) {
-              const index = data["course_sequence"].indexOf(courseId);
-              newCourseSequenceArray[index] = card; // Assign the card to the correct index
+              newCourseSequenceArray.push(courseId); // Store courseId instead of the card element
             }
           });
 
-          // Filter out any null values before setting the state
-          setCourseSequenceArray(newCourseSequenceArray.filter(card => card !== null));
+          // Set the state with the course IDs
+          setCourseSequenceArray(newCourseSequenceArray);
           console.log("New Course Sequence Array:", newCourseSequenceArray); // Log the new array
         } else {
           if (data["reason"] === "Duplicate Files") {
@@ -107,9 +106,10 @@ export const CourseCard = ({
       </Card>
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       {/* Render course sequence cards here */}
-      {courseSequenceArray.map((courseCard, index) => (
+      {courseSequenceArray.map((courseId, index) => (
         <div key={index} className="course-card">
-          {courseCard} {/* Render the course card */}
+          {/* Render the course card component based on courseId */}
+          <CourseCardComponent courseId={courseId} /> {/* Replace with your actual component */}
         </div>
       ))}
     </div>
