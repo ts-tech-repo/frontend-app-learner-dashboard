@@ -42,12 +42,14 @@ export const useInitializeApp = () => {
       console.log('Course sequence data one:', courseSequenceResponse);
 
       // Rearranging courses based on course_sequence response
-      const courseIdOrder = new Set(courseSequenceResponse); // Create a Set for quick lookup
-      const sortedCourses = data.courses.sort((a, b) => {
-        return Array.from(courseIdOrder).indexOf(a.courseRun.courseId) - Array.from(courseIdOrder).indexOf(b.courseRun.courseId);
-      });
-      console.log('Sorted courses:', sortedCourses); // Log the sorted courses
-      loadData({ ...data, courses: sortedCourses }); // Load the sorted courses
+      if (courseSequenceResponse.Status === "Ok") {
+        const courseIdOrder = new Set(courseSequenceResponse.course_sequence); // Create a Set for quick lookup
+        const sortedCourses = data.courses.sort((a, b) => {
+          return Array.from(courseIdOrder).indexOf(a.courseRun.courseId) - Array.from(courseIdOrder).indexOf(b.courseRun.courseId);
+        });
+        console.log('Sorted courses:', sortedCourses); // Log the sorted courses
+        loadData({ ...data, courses: sortedCourses }); // Load the sorted courses
+      }
     },
   });
 };
