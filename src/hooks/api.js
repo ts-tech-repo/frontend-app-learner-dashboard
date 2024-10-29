@@ -5,7 +5,6 @@ import { AppContext } from '@edx/frontend-platform/react';
 import { RequestKeys } from 'data/constants/requests';
 import { post } from 'data/services/lms/utils';
 import api from 'data/services/lms/api';
-import { AppContext } from '@edx/frontend-platform/react';
 
 import * as reduxHooks from 'data/redux/hooks';
 import * as module from './api';
