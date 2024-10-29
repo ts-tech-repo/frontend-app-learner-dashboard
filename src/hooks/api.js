@@ -30,13 +30,14 @@ export const useInitializeApp = () => {
     requestKey: RequestKeys.initialize,
     onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
-
-      if (!data?.courses || !Array.isArray(data.courses) || data.courses.length === 0) {
-        console.error("No courses available or invalid format in the initialization data.");
+      loadData(data);
+      // Check if data and data.courses are defined and valid
+      if (!data || !Array.isArray(data.courses) || data.courses.length === 0) {
+        console.error("Invalid or empty courses data structure:", data);
         return;
       }
 
-      loadData(data);
+      loadData(data);  // Initial load with data
 
       // Prepare form data for course sequence request
       const formData = new FormData();
@@ -51,24 +52,28 @@ export const useInitializeApp = () => {
             body: formData,
           }
         );
-        
+
         const courseSequenceData = await courseSequenceResponse.json();
+        console.log("Course sequence API response:", courseSequenceData);
 
         if (courseSequenceData.Status === "Ok" && Array.isArray(courseSequenceData.course_sequence)) {
           console.log("Course sequence fetched successfully:", courseSequenceData.course_sequence);
 
-          // Clone the original courses data
-          const clonedCourses = JSON.parse(JSON.stringify(data.courses));
-
-          // Rearrange clonedCourses based on course_sequence
+          // Rearrange data.courses based on course_sequence
           const reorderedData = courseSequenceData.course_sequence
-            .map(sequenceId => 
-              clonedCourses.find(course => course.courseRun.courseId === sequenceId)
+            .map(sequenceId =>
+              data.courses.find(course => course.courseRun.courseId === sequenceId)
             )
             .filter(Boolean); // filter out any undefined results
 
-          console.log('Reordered data:', reorderedData);
-          loadData(reorderedData); // Load reordered data
+          console.log('Reordered data to load:', reorderedData);
+
+          // Double-check reorderedData before passing to loadData
+          if (Array.isArray(reorderedData) && reorderedData.length > 0) {
+            loadData(reorderedData); // Load reordered data
+          } else {
+            console.warn("Reordered data is empty or invalid:", reorderedData);
+          }
           
         } else {
           console.error('Failed to fetch course sequence or invalid course_sequence data:', courseSequenceData);
