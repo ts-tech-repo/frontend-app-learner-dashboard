@@ -5,6 +5,7 @@ import { AppContext } from '@edx/frontend-platform/react';
 import { RequestKeys } from 'data/constants/requests';
 import { post } from 'data/services/lms/utils';
 import api from 'data/services/lms/api';
+import { AppContext } from '@edx/frontend-platform/react';
 
 import * as reduxHooks from 'data/redux/hooks';
 import * as module from './api';
@@ -24,6 +25,9 @@ export const useNetworkRequest = (action, args) => {
  * submission list data.
  */
 export const useInitializeApp = () => {
+  const { authenticatedUser } = React.useContext(AppContext);
+  console.log(authenticatedUser.email)
+  
   const loadData = reduxHooks.useLoadData();
 
   return module.useNetworkRequest(api.initializeList, {
@@ -69,7 +73,9 @@ export const useInitializeApp = () => {
           
         } else {
           if (courseSequenceData.reason === "Duplicate Files") {
-            $("#dashboard-content").prepend(`<p class = "error_msg" style = "color:red;border: none; text-align: center;">${courseSequenceData.msg}</p>`);
+            if (authenticatedUser.email.includes('@talentsprint.com')) {
+              $("#dashboard-content").prepend(`<p class = "error_msg" style = "color:red;border: none; text-align: center;">${courseSequenceData.msg}</p>`);
+            }
             console.log("coming here")
             $('#dashboard-content .container-mw-xl.container-fluid').hide();
           }
