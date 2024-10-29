@@ -35,12 +35,11 @@ export const useInitializeApp = () => {
         console.error("No courses available in the initialization data.");
         return;
       }
-
       
-      
-      // Prepare form data for course sequence request
+      //  form data for course sequence request
       const formData = new FormData();
-      formData.append('course_id', data.courses[0].courseRun.courseId);
+      const courseIdWithMarker = data.courses.find(course => course.courseRun.courseId.toLowerCase().includes('marker'));
+      formData.append('course_id', courseIdWithMarker ? courseIdWithMarker.courseRun.courseId : data.courses[0].courseRun.courseId);
 
       try {
         // Fetch the course sequence
@@ -71,7 +70,7 @@ export const useInitializeApp = () => {
         } else {
           if (courseSequenceData.reason === "Duplicate Files") {
             $("#dashboard-content").prepend(`<p class = "error_msg" style = "color:red;border: none; text-align: center;">${courseSequenceData.msg}</p>`);
-            console.error('Failed to fetch course sequence or invalid course_sequence data:', courseSequenceData);
+            console.log("coming here")
           }
           loadData(data);
         }
@@ -81,8 +80,6 @@ export const useInitializeApp = () => {
     },
   });
 };
-
-
 
 export const useNewEntitlementEnrollment = (cardId) => {
   const { uuid } = reduxHooks.useCardEntitlementData(cardId);
