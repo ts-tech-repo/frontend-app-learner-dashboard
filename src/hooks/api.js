@@ -25,13 +25,11 @@ export const useNetworkRequest = (action, args) => {
  */
 export const useInitializeApp = () => {
   const loadData = reduxHooks.useLoadData();
-
   return module.useNetworkRequest(api.initializeList, {
     requestKey: RequestKeys.initialize,
     onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
       loadData(data);
-      
       // Prepare form data for course sequence request
       const formData = new FormData();
       formData.append('course_id', data.courses[0].courseRun.courseId);
@@ -53,7 +51,7 @@ export const useInitializeApp = () => {
 
           // Rearrange data based on course_sequence
           const reorderedData = courseSequenceData.course_sequence.map(sequenceId => 
-            data.courses.find(course => course.courseRun.courseId === sequenceId)
+            data.find(course => course.courseRun.courseId === sequenceId)
           ).filter(Boolean); // filter out any undefined results
 
           console.log('Reordered data:', reorderedData);
