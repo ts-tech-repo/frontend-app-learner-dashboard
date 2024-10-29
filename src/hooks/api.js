@@ -30,35 +30,20 @@ export const useInitializeApp = () => {
     requestKey: RequestKeys.initialize,
     onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
+
+      if (!data?.courses || data.courses.length === 0) {
+        console.error("No courses available in the initialization data.");
+        return;
+      }
+
       loadData(data);
-
-      // Comment out actual loadData call for debugging
-      // loadData(data);
-
-      // Test loadData with dummy data to check for reduce-related errors
-      const dummyData = [
-        {
-          courseRun: {
-            courseId: "course-v1:QUINCE+TestingCourse+Proctor01"
-          },
-          courseProvider: {
-            name: "QUINCE"
-          },
-          enrollment: {},
-          certificate: {},
-          gradeData: {},
-          programs: {},
-          credit: {}
-        }
-      ];
       
-      loadData(dummyData); // Load dummy data
-
-      // Proceed with fetching course sequence as before
+      // Prepare form data for course sequence request
       const formData = new FormData();
-      formData.append('course_id', data.courses?.[0]?.courseRun?.courseId || '');
+      formData.append('course_id', data.courses[0].courseRun.courseId);
 
       try {
+        // Fetch the course sequence
         const courseSequenceResponse = await fetch(
           "https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", 
           {
@@ -66,21 +51,21 @@ export const useInitializeApp = () => {
             body: formData,
           }
         );
-
+        
         const courseSequenceData = await courseSequenceResponse.json();
-        console.log("Course sequence API response:", courseSequenceData);
 
         if (courseSequenceData.Status === "Ok" && Array.isArray(courseSequenceData.course_sequence)) {
+          console.log("Course sequence fetched successfully:", courseSequenceData.course_sequence);
+
+          // Rearrange data based on course_sequence
           const reorderedData = courseSequenceData.course_sequence
-            .map(sequenceId =>
+            .map(sequenceId => 
               data.courses.find(course => course.courseRun.courseId === sequenceId)
             )
-            .filter(Boolean);
+            .filter(Boolean); // filter out any undefined results
 
           console.log('Reordered data:', reorderedData);
-
-          // Test loading reordered data with dummy data to avoid reduce errors
-          loadData(reorderedData.length ? reorderedData : dummyData);
+          loadData(reorderedData); // Load reordered data
           
         } else {
           console.error('Failed to fetch course sequence or invalid course_sequence data:', courseSequenceData);
@@ -91,8 +76,6 @@ export const useInitializeApp = () => {
     },
   });
 };
-
-
 
 
 
