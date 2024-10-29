@@ -71,7 +71,7 @@ export const useInitializeApp = () => {
           if (courseSequenceData.reason === "Duplicate Files") {
             $("#dashboard-content").prepend(`<p class = "error_msg" style = "color:red;border: none; text-align: center;">${courseSequenceData.msg}</p>`);
             console.log("coming here")
-            $('.dashboard-content').hide();
+            $('#dashboard-content').hide();
           }
           loadData(data);
         }
