@@ -30,7 +30,7 @@ export const useInitializeApp = () => {
     requestKey: RequestKeys.initialize,
     onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
-      loadData(data);
+      
       if (!data?.courses || data.courses.length === 0) {
         console.error("No courses available in the initialization data.");
         return;
@@ -69,6 +69,7 @@ export const useInitializeApp = () => {
           loadData(reorderedData); // Load reordered data
           
         } else {
+          loadData(data);
           console.error('Failed to fetch course sequence or invalid course_sequence data:', courseSequenceData);
         }
       } catch (error) {
