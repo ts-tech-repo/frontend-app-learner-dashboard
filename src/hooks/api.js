@@ -25,11 +25,19 @@ export const useNetworkRequest = (action, args) => {
  */
 export const useInitializeApp = () => {
   const loadData = reduxHooks.useLoadData();
+
   return module.useNetworkRequest(api.initializeList, {
     requestKey: RequestKeys.initialize,
     onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
+
+      if (!data?.courses || data.courses.length === 0) {
+        console.error("No courses available in the initialization data.");
+        return;
+      }
+
       loadData(data);
+      
       // Prepare form data for course sequence request
       const formData = new FormData();
       formData.append('course_id', data.courses[0].courseRun.courseId);
@@ -46,19 +54,21 @@ export const useInitializeApp = () => {
         
         const courseSequenceData = await courseSequenceResponse.json();
 
-        if (courseSequenceData.Status === "Ok" && courseSequenceData.course_sequence) {
+        if (courseSequenceData.Status === "Ok" && Array.isArray(courseSequenceData.course_sequence)) {
           console.log("Course sequence fetched successfully:", courseSequenceData.course_sequence);
 
           // Rearrange data based on course_sequence
-          const reorderedData = courseSequenceData.course_sequence.map(sequenceId => 
-            data.find(course => course.courseRun.courseId === sequenceId)
-          ).filter(Boolean); // filter out any undefined results
+          const reorderedData = courseSequenceData.course_sequence
+            .map(sequenceId => 
+              data.courses.find(course => course.courseRun.courseId === sequenceId)
+            )
+            .filter(Boolean); // filter out any undefined results
 
           console.log('Reordered data:', reorderedData);
           loadData(reorderedData); // Load reordered data
           
         } else {
-          console.error('Failed to fetch course sequence:', courseSequenceData.Status);
+          console.error('Failed to fetch course sequence or invalid course_sequence data:', courseSequenceData);
         }
       } catch (error) {
         console.error('Error fetching course sequence:', error);
@@ -66,6 +76,7 @@ export const useInitializeApp = () => {
     },
   });
 };
+
 
 
 export const useNewEntitlementEnrollment = (cardId) => {
