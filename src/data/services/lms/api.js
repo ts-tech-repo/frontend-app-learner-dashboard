@@ -18,6 +18,7 @@ import * as module from './api';
  *********************************************************************************/
 export const initializeList = ({ user } = {}) => {
   $('#dashboard-content .container-mw-xl.container-fluid, .mobile-quicklinks').show();
+  $('.error_msg').remove();
   return get(
     stringifyUrl(urls.getInitApiUrl(), { [apiKeys.user]: user }),
   );
