@@ -57,16 +57,16 @@ export const useInitializeApp = () => {
         if (courseSequenceData.Status === "Ok" && Array.isArray(courseSequenceData.course_sequence)) {
           console.log("Course sequence fetched successfully:", courseSequenceData.course_sequence);
 
-          // Rearrange data based on course_sequence, including remaining fields
-          const reorderedData = courseSequenceData.course_sequence
-            .map(sequenceId => {
-              const course = data.courses.find(course => course.courseRun.courseId === sequenceId);
-              return course ? { ...course, sequenceOrder: sequenceId } : undefined;
-            })
+          // Rearrange the courses in the original data object
+          const reorderedData = { ...data };
+          reorderedData.courses = courseSequenceData.course_sequence
+            .map(sequenceId => 
+              reorderedData.courses.find(course => course.courseRun.courseId === sequenceId)
+            )
             .filter(Boolean); // filter out any undefined results
 
-          console.log('Reordered data with sequence order:', reorderedData);
-          loadData(reorderedData); // Load reordered data with sequence order
+          console.log('Reordered data:', reorderedData);
+          loadData(reorderedData); // Load reordered data
           
         } else {
           console.error('Failed to fetch course sequence or invalid course_sequence data:', courseSequenceData);
