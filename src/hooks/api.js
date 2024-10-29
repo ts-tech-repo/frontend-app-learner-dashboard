@@ -30,13 +30,13 @@ export const useInitializeApp = () => {
     requestKey: RequestKeys.initialize,
     onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
-
+      loadData(data);
       if (!data?.courses || data.courses.length === 0) {
         console.error("No courses available in the initialization data.");
         return;
       }
 
-      loadData(data);
+      
       
       // Prepare form data for course sequence request
       const formData = new FormData();
@@ -57,15 +57,16 @@ export const useInitializeApp = () => {
         if (courseSequenceData.Status === "Ok" && Array.isArray(courseSequenceData.course_sequence)) {
           console.log("Course sequence fetched successfully:", courseSequenceData.course_sequence);
 
-          // Rearrange data based on course_sequence
+          // Rearrange data based on course_sequence, including remaining fields
           const reorderedData = courseSequenceData.course_sequence
-            .map(sequenceId => 
-              data.courses.find(course => course.courseRun.courseId === sequenceId)
-            )
+            .map(sequenceId => {
+              const course = data.courses.find(course => course.courseRun.courseId === sequenceId);
+              return course ? { ...course, sequenceOrder: sequenceId } : undefined;
+            })
             .filter(Boolean); // filter out any undefined results
 
-          console.log('Reordered data:', reorderedData);
-          loadData(reorderedData); // Load reordered data
+          console.log('Reordered data with sequence order:', reorderedData);
+          loadData(reorderedData); // Load reordered data with sequence order
           
         } else {
           console.error('Failed to fetch course sequence or invalid course_sequence data:', courseSequenceData);
