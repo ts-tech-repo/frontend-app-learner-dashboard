@@ -30,6 +30,7 @@ export const useInitializeApp = () => {
     requestKey: RequestKeys.initialize,
     onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
+      loadData(data);
 
       // Comment out actual loadData call for debugging
       // loadData(data);
