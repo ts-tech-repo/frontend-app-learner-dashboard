@@ -70,7 +70,7 @@ export const useInitializeApp = () => {
           
         } else {
           if (courseSequenceData.reason === "Duplicate Files") {
-            $("#dashboard-content").prepend(`<p class = "error_msg" style = "color:red;border: none; text-align: center;">${data["reason"]}</p>`);
+            $("#dashboard-content").prepend(`<p class = "error_msg" style = "color:red;border: none; text-align: center;">${courseSequenceData.msg}</p>`);
             console.error('Failed to fetch course sequence or invalid course_sequence data:', courseSequenceData);
           }
           loadData(data);
