@@ -68,9 +68,12 @@ export const useInitializeApp = () => {
           console.log('Reordered data:', reorderedData);
           loadData(reorderedData); // Load reordered data
           
-        } else {
-          loadData(data);
+        } else if (data["reason"] == "Duplicate Files"){
+          $("#dashboard-content").prepend(`<p class = "error_msg" style = "color:red;border: none; text-align: center;">${data["reason"]}</p>`)
           console.error('Failed to fetch course sequence or invalid course_sequence data:', courseSequenceData);
+          loadData(data);
+        }else{
+          loadData(data);
         }
       } catch (error) {
         console.error('Error fetching course sequence:', error);
