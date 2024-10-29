@@ -31,13 +31,13 @@ export const useInitializeApp = () => {
     onSuccess: async ({ data }) => {
       console.log('App initialization successful:', data);
 
-      if (!data?.courses || data.courses.length === 0) {
-        console.error("No courses available in the initialization data.");
+      if (!data?.courses || !Array.isArray(data.courses) || data.courses.length === 0) {
+        console.error("No courses available or invalid format in the initialization data.");
         return;
       }
 
       loadData(data);
-      
+
       // Prepare form data for course sequence request
       const formData = new FormData();
       formData.append('course_id', data.courses[0].courseRun.courseId);
@@ -57,10 +57,13 @@ export const useInitializeApp = () => {
         if (courseSequenceData.Status === "Ok" && Array.isArray(courseSequenceData.course_sequence)) {
           console.log("Course sequence fetched successfully:", courseSequenceData.course_sequence);
 
-          // Rearrange data based on course_sequence
+          // Clone the original courses data
+          const clonedCourses = JSON.parse(JSON.stringify(data.courses));
+
+          // Rearrange clonedCourses based on course_sequence
           const reorderedData = courseSequenceData.course_sequence
             .map(sequenceId => 
-              data.courses.find(course => course.courseRun.courseId === sequenceId)
+              clonedCourses.find(course => course.courseRun.courseId === sequenceId)
             )
             .filter(Boolean); // filter out any undefined results
 
@@ -76,6 +79,7 @@ export const useInitializeApp = () => {
     },
   });
 };
+
 
 
 
