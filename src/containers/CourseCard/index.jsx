@@ -18,35 +18,34 @@ export const CourseCard = ({
 }) => {
   const isCollapsed = useIsCollapsed();
   const orientation = isCollapsed ? 'vertical' : 'horizontal';
-  const courseCards = (
+  return (
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
-      <Card orientation={orientation}>
-        <div className="d-flex flex-column w-100">
-          <div {...(!isCollapsed && { className: 'd-flex flex-column' })}>
-            <CourseCardImage cardId={cardId} orientation="horizontal" />
-            <Card.Body>
-              <Card.Section className="pt-2 pb-0">
-                <CourseCardDetails cardId={cardId} />
-              </Card.Section>
-              <Card.Header
-                title={<CourseCardTitle cardId={cardId} />}
-                actions={<CourseCardMenu cardId={cardId} />}
-              />
-              <Card.Footer orientation={orientation}>
-                <CourseCardActions cardId={cardId} />
-              </Card.Footer>
-            </Card.Body>
-          </div>
-          {/* <CourseCardBanners cardId={cardId} /> */}
-        </div>
-      </Card>
+      {cardId.split(',').sort().map((id, index) => (
+        <React.Fragment key={index}>
+          <Card orientation={orientation}>
+            <div className="d-flex flex-column w-100">
+              <div {...(!isCollapsed && { className: 'd-flex flex-column' })}>
+                <CourseCardImage cardId={id} orientation="horizontal" />
+                <Card.Body>
+                  <Card.Section className="pt-2 pb-0">
+                    <CourseCardDetails cardId={id} />
+                  </Card.Section>
+                  <Card.Header
+                    title={<CourseCardTitle cardId={id} />}
+                    actions={<CourseCardMenu cardId={id} />}
+                  />
+                  <Card.Footer orientation={orientation}>
+                    <CourseCardActions cardId={id} />
+                  </Card.Footer>
+                </Card.Body>
+              </div>
+{/*               <CourseCardBanners cardId={id} /> */}
+            </div>
+          </Card>
+        </React.Fragment>
+      ))}
     </div>
   );
-
-  // Wrap courseCards in an array to enable sorting
-  const sortedCourseCards = [courseCards].sort((a, b) => parseInt(a.props.id.replace('card-', '')) - parseInt(b.props.id.replace('card-', '')));
-
-  return sortedCourseCards[0];
 };
 CourseCard.propTypes = {
   cardId: PropTypes.string.isRequired,
