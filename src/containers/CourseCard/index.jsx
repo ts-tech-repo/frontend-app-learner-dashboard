@@ -43,9 +43,10 @@ export const CourseCard = ({
     </div>
   );
 
-  const sortedCourseCards = courseCards.sort((a, b) => parseInt(a.props.id.replace('card-', '')) - parseInt(b.props.id.replace('card-', '')));
+  // Wrap courseCards in an array to enable sorting
+  const sortedCourseCards = [courseCards].sort((a, b) => parseInt(a.props.id.replace('card-', '')) - parseInt(b.props.id.replace('card-', '')));
 
-  return sortedCourseCards;
+  return sortedCourseCards[0];
 };
 CourseCard.propTypes = {
   cardId: PropTypes.string.isRequired,
