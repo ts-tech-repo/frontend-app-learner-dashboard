@@ -17,11 +17,14 @@ import * as module from './api';
  * GET Actions
  *********************************************************************************/
 export const initializeList = ({ user } = {}) => {
+  const fetchData = () => {
+    return get(
+      stringifyUrl(urls.getInitApiUrl(), { [apiKeys.user]: user }),
+    );
+  };
   $('#dashboard-content .container-mw-xl.container-fluid, .mobile-quicklinks').show();
   $('.error_msg').remove();
-  return get(
-    stringifyUrl(urls.getInitApiUrl(), { [apiKeys.user]: user }),
-  );
+  return fetchData();
 }
 
 export const updateEntitlementEnrollment = ({ uuid, courseId }) => post(
