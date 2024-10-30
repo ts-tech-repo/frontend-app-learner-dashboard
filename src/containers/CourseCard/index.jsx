@@ -18,7 +18,7 @@ export const CourseCard = ({
 }) => {
   const isCollapsed = useIsCollapsed();
   const orientation = isCollapsed ? 'vertical' : 'horizontal';
-  return (
+  const courseCards = (
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
       <Card orientation={orientation}>
         <div className="d-flex flex-column w-100">
@@ -42,6 +42,10 @@ export const CourseCard = ({
       </Card>
     </div>
   );
+
+  const sortedCourseCards = courseCards.sort((a, b) => parseInt(a.props.id.replace('card-', '')) - parseInt(b.props.id.replace('card-', '')));
+
+  return sortedCourseCards;
 };
 CourseCard.propTypes = {
   cardId: PropTypes.string.isRequired,
