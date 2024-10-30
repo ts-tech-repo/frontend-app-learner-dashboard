@@ -13,10 +13,11 @@ import CourseCardTitle from './components/CourseCardTitle';
 
 import './CourseCard.scss';
 
-export const CourseCard = ({ cardId }) => {
+export const CourseCard = ({
+  cardId,
+}) => {
   const isCollapsed = useIsCollapsed();
   const orientation = isCollapsed ? 'vertical' : 'horizontal';
-
   return (
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
       <Card orientation={orientation}>
@@ -36,36 +37,14 @@ export const CourseCard = ({ cardId }) => {
               </Card.Footer>
             </Card.Body>
           </div>
-          {/* <CourseCardBanners cardId={cardId} /> */}
+{/*           <CourseCardBanners cardId={cardId} /> */}
         </div>
       </Card>
     </div>
   );
 };
-
 CourseCard.propTypes = {
   cardId: PropTypes.string.isRequired,
 };
 
-// CourseCardList component that sorts and renders CourseCards in ascending order by cardId
-const CourseCardList = ({ courses }) => {
-  const sortedCourses = [...courses].sort((a, b) => a.cardId.localeCompare(b.cardId));
-
-  return (
-    <div className="course-card-list">
-      {sortedCourses.map(course => (
-        <CourseCard key={course.cardId} cardId={course.cardId} />
-      ))}
-    </div>
-  );
-};
-
-CourseCardList.propTypes = {
-  courses: PropTypes.arrayOf(PropTypes.shape({
-    cardId: PropTypes.string.isRequired,
-  })).isRequired,
-};
-
-// Export CourseCard as a named export and CourseCardList as the default export
-export { CourseCard };
-export default CourseCardList;
+export default CourseCard;
