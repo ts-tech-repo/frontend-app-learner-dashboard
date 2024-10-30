@@ -22,7 +22,7 @@ export const initializeList = ({ user } = {}) => {
       stringifyUrl(urls.getInitApiUrl(), { [apiKeys.user]: user }),
     );
   };
-  $('#dashboard-content .container-mw-xl.container-fluid, .mobile-quicklinks').show();
+  $('#dashboard-content .container-mw-xl.container-fluid').show();
   $('.error_msg').remove();
   return fetchData();
 }
