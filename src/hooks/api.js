@@ -30,7 +30,7 @@ export const useInitializeApp = () => {
   return module.useNetworkRequest(api.initializeList, {
     requestKey: RequestKeys.initialize,
     onSuccess: async ({ data }) => {      
-      console,log(data);
+      console.log(data);
       if (!data?.courses || data.courses.length === 0) {
         console.error("No courses available in the initialization data.");
         return;
