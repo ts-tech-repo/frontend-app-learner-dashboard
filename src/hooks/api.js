@@ -24,10 +24,55 @@ export const useNetworkRequest = (action, args) => {
  * submission list data.
  */
 export const useInitializeApp = () => {
+  const { authenticatedUser } = React.useContext(AppContext);  
   const loadData = reduxHooks.useLoadData();
+
   return module.useNetworkRequest(api.initializeList, {
     requestKey: RequestKeys.initialize,
-    onSuccess: ({ data }) => loadData(data),
+    onSuccess: async ({ data }) => {      
+      console.log("response one", data);
+      if (!data?.courses || data.courses.length === 0) {
+        console.error("No courses available in the initialization data.");
+        return;
+      }
+      const formData = new FormData();
+      const courseIdWithMarker = data.courses.find(course => course.courseRun.courseId.toLowerCase().includes('marker'));
+      formData.append('course_id', courseIdWithMarker ? courseIdWithMarker.courseRun.courseId : data.courses[0].courseRun.courseId);
+
+      try {
+        const courseSequenceResponse = await fetch(
+          "https://staging.dashboard.talentsprint.com/quicklinks/course_sequence", 
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const courseSequenceData = await courseSequenceResponse.json();
+        if (courseSequenceData.Status === "Ok" && Array.isArray(courseSequenceData.course_sequence)) {
+          console.log("Course sequence fetched successfully:", courseSequenceData.course_sequence);
+          const reorderedData = { ...data };
+          reorderedData.courses = courseSequenceData.course_sequence
+            .map(sequenceId => 
+              reorderedData.courses.find(course => course.courseRun.courseId === sequenceId)
+            )
+            .filter(Boolean);
+
+          console.log('Reordered data:', reorderedData);
+          loadData(reorderedData);
+        } else {
+          if (courseSequenceData.reason === "Duplicate Files") {
+            console.log("Duplicate Files");
+            if (authenticatedUser.email.includes('@talentsprint.com') && !$(".error_msg").length) {
+              $("#dashboard-content").prepend(`<p class = "error_msg" style = "color:red;border: none; text-align: center;">${courseSequenceData.msg}</p>`);
+            }
+            $('#dashboard-content .container-mw-xl.container-fluid, .mobile-quicklinks').hide();
+          }
+          loadData(data);
+        }
+      } catch (error) {
+        console.error('Error fetching course sequence:', error);
+      }
+    },
   });
 };
 
@@ -71,7 +116,7 @@ export const useMasqueradeAs = () => {
   const loadData = reduxHooks.useLoadData();
   return module.useNetworkRequest(
     (user) => api.initializeList({ user }),
-    { onSuccess: ({ data }) => { console.log(data); loadData(data); }, requestKey: RequestKeys.masquerade },
+    { onSuccess: ({ data }) => loadData(data), requestKey: RequestKeys.masquerade },
   );
 };
 

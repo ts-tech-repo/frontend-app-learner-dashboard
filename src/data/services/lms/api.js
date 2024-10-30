@@ -16,9 +16,16 @@ import * as module from './api';
 /*********************************************************************************
  * GET Actions
  *********************************************************************************/
-export const initializeList = ({ user } = {}) => get(
-  stringifyUrl(urls.getInitApiUrl(), { [apiKeys.user]: user }),
-);
+export const initializeList = ({ user } = {}) => {
+  const fetchData = () => {
+    return get(
+      stringifyUrl(urls.getInitApiUrl(), { [apiKeys.user]: user }),
+    );
+  };
+  $('#dashboard-content .container-mw-xl.container-fluid').show();
+  $('.error_msg').remove();
+  return fetchData();
+}
 
 export const updateEntitlementEnrollment = ({ uuid, courseId }) => post(
   urls.entitlementEnrollment(uuid),
