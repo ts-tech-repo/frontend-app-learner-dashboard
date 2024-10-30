@@ -71,7 +71,7 @@ export const useMasqueradeAs = () => {
   const loadData = reduxHooks.useLoadData();
   return module.useNetworkRequest(
     (user) => api.initializeList({ user }),
-    { onSuccess: ({ data }) => { console.log(data); loadData(data); }, requestKey: RequestKeys.masquerade },
+    { onSuccess: ({ data }) => loadData(data), requestKey: RequestKeys.masquerade },
   );
 };
 
