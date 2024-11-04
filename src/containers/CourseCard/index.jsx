@@ -20,6 +20,7 @@ export const CourseCard = ({
   const orientation = isCollapsed ? 'vertical' : 'horizontal';
   return (
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
+      {console.log(cardId)}
       <Card orientation={orientation}>
         <div className="d-flex flex-column w-100">
           <div {...(!isCollapsed && { className: 'd-flex flex-column' })}>
