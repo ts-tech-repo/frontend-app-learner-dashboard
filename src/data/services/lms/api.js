@@ -19,6 +19,8 @@ import * as module from './api';
 export const initializeList = ({ user } = {}) => {
   console.log(`Fetching initialization data for user: ${user}`);
   const fetchData = () => {
+    console.log(`Sending GET request to: ${urls.getInitApiUrl()}`);
+    console.log(`Request parameters: ${JSON.stringify({ [apiKeys.user]: user })}`);
     return get(
       stringifyUrl(urls.getInitApiUrl(), { [apiKeys.user]: user }),
     );
