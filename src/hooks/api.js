@@ -65,7 +65,6 @@ export const useInitializeApp = () => {
             if (authenticatedUser.email.includes('@talentsprint.com') && !$(".error_msg").length) {
               $("#dashboard-content").prepend(`<p class = "error_msg" style = "color:red;border: none; text-align: center;">${courseSequenceData.msg}</p>`);
             }
-            $('#dashboard-content .container-mw-xl.container-fluid, .mobile-quicklinks').hide();
           }
           loadData(data);
         }
