@@ -104,7 +104,7 @@ export const App = () => {
         );
         if (footerElement) {
           let footerHtml = `
-            <div class="faq-div">
+            <div class="faq-div" style="display: flex; align-items: center">
               ${
                 termsAndConditions
                   ? `<a target="_blank" class='conditions' href="${termsAndConditions}">Program Terms and Conditions</a>`
