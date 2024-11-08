@@ -16,7 +16,9 @@ export const AuthenticatedUserDropdown = () => {
   const dashboard = reduxHooks.useEnterpriseDashboardData();
 
   return (
-    authenticatedUser && (
+    <>
+      <div style = {{display:"none"}} className="emailAddress">{authenticatedUser.email}</div>
+      {authenticatedUser && (
       <Dropdown className="user-dropdown pr4">
         <Dropdown.Toggle
           as={AvatarButton}
@@ -73,7 +75,8 @@ export const AuthenticatedUserDropdown = () => {
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-    )
+    )}
+    </>
   );
 };
 
