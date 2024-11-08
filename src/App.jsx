@@ -111,15 +111,12 @@ export const App = () => {
               </svg>
               ${support ? `<a class='email_link' href="mailto:${support}">${support}</a>` : ''}
             </div>
-            <a class="edx-tag" href="https://open.edx.org">
-              <img src="https://logos.openedx.org/open-edx-logo-tag.png" alt="Powered by Open edX" width="175">
-            </a>
           `;
   
           footerElement.innerHTML += footerHtml;
-          document.querySelector('footer.footer').innerHTML += `
-            <p>© ${siteName}. All rights reserved except where noted. edX, Open edX, and their respective logos are registered trademarks of edX Inc.</p>
-          `;
+          // document.querySelector('footer.footer').innerHTML += `
+          //   <p>© ${siteName}. All rights reserved except where noted. edX, Open edX, and their respective logos are registered trademarks of edX Inc.</p>
+          // `;
         }
       }
     };
