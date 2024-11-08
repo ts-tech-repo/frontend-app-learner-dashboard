@@ -111,6 +111,9 @@ export const App = () => {
               </svg>
               ${support ? `<a class='email_link' href="mailto:${support}">${support}</a>` : ''}
             </div>
+            <a class="edx-tag" href="https://open.edx.org" style="display: none;">
+              <img src="https://logos.openedx.org/open-edx-logo-tag.png" alt="Powered by Open edX" width="175">
+            </a>
           `;
   
           footerElement.innerHTML += footerHtml;
