@@ -16,18 +16,9 @@ import * as module from './api';
 /*********************************************************************************
  * GET Actions
  *********************************************************************************/
-export const initializeList = ({ user } = {}) => {
-  console.log(`Fetching initialization data for user: ${user}`);
-  const fetchData = () => {
-    console.log(`Sending GET request to: ${urls.getInitApiUrl()}`);
-    console.log(`Request parameters: ${JSON.stringify({ [apiKeys.user]: user })}`);
-    return get(
-      stringifyUrl(urls.getInitApiUrl(), { [apiKeys.user]: user }),
-    );
-  };
-  $('.error_msg').remove();
-  return fetchData();
-}
+export const initializeList = ({ user } = {}) => get(
+  stringifyUrl(urls.getInitApiUrl(), { [apiKeys.user]: user }),
+);
 
 export const updateEntitlementEnrollment = ({ uuid, courseId }) => post(
   urls.entitlementEnrollment(uuid),
