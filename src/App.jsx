@@ -158,7 +158,7 @@ export const App = () => {
   return (
     <>
     <div style = {{display:"none"}} className="emailAddress">{authenticatedUser.email}</div>
-    <div style = {{display:"none"}} className="d-md-inline userName">{authenticatedUser.username}</div>
+    <div style = {{display:"none"}} className="userName">{authenticatedUser.username}</div>
       <Helmet>
         <title>{formatMessage(messages.pageTitle)}</title>
         <link
