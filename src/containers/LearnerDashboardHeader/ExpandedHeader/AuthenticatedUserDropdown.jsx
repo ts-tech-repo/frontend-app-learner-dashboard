@@ -17,7 +17,6 @@ export const AuthenticatedUserDropdown = () => {
 
   return (
     <>
-      <div style = {{display:"none"}} className="emailAddress">{authenticatedUser.email}</div>
       {authenticatedUser && (
       <Dropdown className="user-dropdown pr4">
         <Dropdown.Toggle
