@@ -99,45 +99,67 @@ export const App = () => {
   React.useEffect(() => {
     const appendFooterContent = () => {
       if (!document.querySelector(".faq_tag")) {
-        const footerElement = document.querySelector(
-          "footer.footer .flex-grow-1"
-        );
+        const footerElement = document.querySelector("footer.footer .flex-grow-1");
         if (footerElement) {
-          let footerHtml = `
-            <div class="faq-div" style="display: flex; align-items: center">
-              ${
-                termsAndConditions
-                  ? `<a target="_blank" class='conditions' href="${termsAndConditions}">Program Terms and Conditions</a>`
-                  : ""
-              }
-              ${
-                faq
-                  ? `<a class="faq_tag" target="_blank" href="${faq}">Program FAQs</a>`
-                  : ""
-              }
-              ${
-                studentHandbook
-                  ? `<a href="${studentHandbook}" target="_blank" class="student-handbook">Student Handbook</a>`
-                  : ""
-              }
-              
-              ${
-                support
-                  ? `<div class="supper-mail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          const footerDiv = document.createElement("div");
+          footerDiv.className = "faq-div";
+          footerDiv.style.display = "flex";
+          footerDiv.style.alignItems = "center";
+    
+          if (termsAndConditions) {
+            const termsLink = document.createElement("a");
+            termsLink.href = termsAndConditions;
+            termsLink.target = "_blank";
+            termsLink.className = "conditions";
+            termsLink.textContent = "Program Terms and Conditions";
+            footerDiv.appendChild(termsLink);
+          }
+    
+          if (faq) {
+            const faqLink = document.createElement("a");
+            faqLink.href = faq;
+            faqLink.target = "_blank";
+            faqLink.className = "faq_tag";
+            faqLink.textContent = "Program FAQs";
+            footerDiv.appendChild(faqLink);
+          }
+    
+          if (studentHandbook) {
+            const handbookLink = document.createElement("a");
+            handbookLink.href = studentHandbook;
+            handbookLink.target = "_blank";
+            handbookLink.className = "student-handbook";
+            handbookLink.textContent = "Student Handbook";
+            footerDiv.appendChild(handbookLink);
+          }
+    
+          if (support && (siteName === "IIT Kanpur eMasters Degree" || siteName === "CMU")) {
+            const supportDiv = document.createElement("div");
+            supportDiv.className = "support-mail";
+            supportDiv.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-label="Email icon">
                 <path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z" fill="#15376d"/>
-              </svg> <a class='email_link' href="mailto:${support}">${support}</a></div>`
-                  : ""
-              }
-            </div>
-            <a class="edx-tag" href="https://open.edx.org">
-              <img src="https://logos.openedx.org/open-edx-logo-tag.png" alt="Powered by Open edX" width="175">
-            </a>
+              </svg>
+              <a class="email_link" href="mailto:${support}">${support}</a>
+            `;
+            footerDiv.appendChild(supportDiv);
+          }
+    
+          footerElement.appendChild(footerDiv);
+    
+          const poweredByEdx = document.createElement("a");
+          poweredByEdx.className = "edx-tag";
+          poweredByEdx.href = "https://open.edx.org";
+          poweredByEdx.innerHTML = `
+            <img src="https://logos.openedx.org/open-edx-logo-tag.png" alt="Powered by Open edX" width="175">
           `;
-
-          footerElement.innerHTML += footerHtml;
-          document.querySelector('footer.footer').innerHTML += `
-            <p>© ${siteName}. All rights reserved except where noted. edX, Open edX, and their respective logos are registered trademarks of edX Inc.</p>
-          `;
+          footerElement.appendChild(poweredByEdx);
+    
+          if (!document.querySelector("footer.footer p")) {
+            const footerNote = document.createElement("p");
+            footerNote.textContent = `© ${siteName}. All rights reserved except where noted. edX, Open edX, and their respective logos are registered trademarks of edX Inc.`;
+            document.querySelector("footer.footer").appendChild(footerNote);
+          }
         }
       }
     };
