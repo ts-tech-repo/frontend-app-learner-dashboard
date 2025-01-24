@@ -101,13 +101,6 @@ export const CollapseMenuBody = ({ isOpen }) => {
                 {formatMessage(messages.orderHistory)}
               </Button>
             )}
-            {siteNameMessage === "IIT Kanpur eMasters Degree" ? <Button
-              as="a"
-              href="https://emasters.iitk.ac.in/report/dashboard"
-              variant="inverse-primary"
-            >
-              Orders and Payments
-            </Button> : '' }
             
             <Button
               as="a"
