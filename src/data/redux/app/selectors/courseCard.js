@@ -4,15 +4,15 @@ import { EXECUTIVE_EDUCATION_COURSE_MODES } from 'data/constants/course';
 
 import * as module from './courseCard';
 import * as simpleSelectors from './simpleSelectors';
-
+console.log(simpleSelectors);
 const { cardSimpleSelectors, mkCardSelector } = simpleSelectors;
+console.log(simpleSelectors);
 
 const today = new Date();
 const dateSixMonthsFromNow = new Date();
 dateSixMonthsFromNow.setDate(dateSixMonthsFromNow.getDate() + 180);
 
 export const loadDateVal = (date) => (date ? new Date(date) : null);
-console.log(baseAppUrl, "baseAppUrl")
 
 export const courseCard = StrictDict({
   certificate: mkCardSelector(
