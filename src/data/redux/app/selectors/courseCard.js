@@ -12,6 +12,7 @@ const dateSixMonthsFromNow = new Date();
 dateSixMonthsFromNow.setDate(dateSixMonthsFromNow.getDate() + 180);
 
 export const loadDateVal = (date) => (date ? new Date(date) : null);
+console.log(baseAppUrl, "baseAppUrl")
 
 export const courseCard = StrictDict({
   certificate: mkCardSelector(
