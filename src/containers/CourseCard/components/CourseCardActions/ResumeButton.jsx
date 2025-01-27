@@ -22,14 +22,26 @@ export const ResumeButton = ({ cardId }) => {
     resumeUrl + execEdTrackingParam,
   );
   return (
+    <>
+    {ptcPop ? 
     <ActionButton
       disabled={disableResumeCourse}
       as="a"
       href="#"
       onClick={handleClick}
     >
-      {ptcPop ? formatMessage(messages.checking) : formatMessage(messages.resume)}
+    { formatMessage(messages.resume)}
     </ActionButton>
+     :
+     <ActionButton
+      disabled={disableResumeCourse}
+      as="a"
+      href=""
+    >
+       formatMessage(messages.checking)
+    </ActionButton>
+    }
+    </>
   );
 };
 ResumeButton.propTypes = {
