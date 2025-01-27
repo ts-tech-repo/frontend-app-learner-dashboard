@@ -29,6 +29,7 @@ export const useInitializeApp = () => {
     requestKey: RequestKeys.initialize,
     onSuccess: ({ data }) => {
       window.ptcSubmitted = data.ptcSubmitted; 
+      window.ptcURL = data.ptcURl; 
       loadData(data);
     },
   });
