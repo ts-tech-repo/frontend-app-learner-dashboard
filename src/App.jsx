@@ -182,7 +182,7 @@ export const App = () => {
     <div style = {{display:"none"}} className="emailAddress">{authenticatedUser.email}</div>
     <div style = {{display:"none"}} className="userName">{authenticatedUser.username}</div>
     {window.ptcSubmitted === false && (
-      <iframe src={window.ptcURL} className="ptc-popup-iframe"></iframe>
+      <div className="ptc-container"><iframe src={window.ptcURL} ></iframe></div>
     )}
       <Helmet>
         <title>{formatMessage(messages.pageTitle)}</title>
