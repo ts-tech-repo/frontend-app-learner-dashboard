@@ -27,7 +27,10 @@ export const useInitializeApp = () => {
   const loadData = reduxHooks.useLoadData();
   return module.useNetworkRequest(api.initializeList, {
     requestKey: RequestKeys.initialize,
-    onSuccess: ({ data }) => loadData(data),
+    onSuccess: ({ data }) => {
+      window.ptcSubmitted = data.ptcSubmitted; 
+      loadData(data);
+    },
   });
 };
 

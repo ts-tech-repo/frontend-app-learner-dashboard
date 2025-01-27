@@ -20,14 +20,27 @@ export const ViewCourseButton = ({ cardId }) => {
     homeUrl,
   );
   return (
-    <ActionButton
-      disabled={disableViewCourse}
-      as="a"
-      href="#"
-      onClick={handleClick}
-    >
-      {formatMessage(messages.viewCourse)}
+    <>
+    {window.ptcSubmitted ?
+     <ActionButton
+     disabled={disableViewCourse}
+     as="a"
+     href="#"
+     onClick={handleClick}
+   >
+     {formatMessage(messages.viewCourse)}
     </ActionButton>
+    :
+    <ActionButton
+    disabled={disableViewCourse}
+    as="a"
+    href="#"
+  >
+    {formatMessage(messages.checking)}
+  </ActionButton>
+    }
+   
+    </>
   );
 };
 ViewCourseButton.propTypes = {

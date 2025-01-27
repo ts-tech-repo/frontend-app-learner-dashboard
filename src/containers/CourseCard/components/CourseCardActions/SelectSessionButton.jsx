@@ -13,12 +13,23 @@ export const SelectSessionButton = ({ cardId }) => {
   const { disableSelectSession } = useActionDisabledState(cardId);
   const openSessionModal = reduxHooks.useUpdateSelectSessionModalCallback(cardId);
   return (
-    <ActionButton
-      disabled={disableSelectSession}
-      onClick={openSessionModal}
-    >
-      {formatMessage(messages.selectSession)}
-    </ActionButton>
+    <>
+      {window.ptcSubmitted ?
+        <ActionButton
+          disabled={disableSelectSession}
+          onClick={openSessionModal}
+        >
+          {formatMessage(messages.selectSession)}
+        </ActionButton>
+        :
+        <ActionButton
+          disabled={disableSelectSession}
+        >
+          {formatMessage(messages.checking)}
+        </ActionButton>
+      }
+    </>
+
   );
 };
 SelectSessionButton.propTypes = {
