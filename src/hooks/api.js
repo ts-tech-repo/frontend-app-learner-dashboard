@@ -28,7 +28,6 @@ export const useInitializeApp = () => {
   return module.useNetworkRequest(api.initializeList, {
     requestKey: RequestKeys.initialize,
     onSuccess: ({ data }) => {
-      console.log('App initialization successful:', data);
       window.ptcSubmitted = data.ptcSubmitted; 
       loadData(data);
     },
