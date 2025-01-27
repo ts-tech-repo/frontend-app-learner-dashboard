@@ -4,7 +4,7 @@ import { EXECUTIVE_EDUCATION_COURSE_MODES } from 'data/constants/course';
 
 import * as module from './courseCard';
 import * as simpleSelectors from './simpleSelectors';
-console.log(simpleSelectors);
+console.log(simpleSelectors, "simpleSelectors1");
 const { cardSimpleSelectors, mkCardSelector } = simpleSelectors;
 console.log(simpleSelectors, "simpleSelectors");
 console.log(mkCardSelector, "mkCardSelector");
