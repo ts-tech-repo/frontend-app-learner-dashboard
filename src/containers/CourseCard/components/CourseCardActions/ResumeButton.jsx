@@ -38,7 +38,7 @@ export const ResumeButton = ({ cardId }) => {
       as="a"
       href=""
     >
-       formatMessage(messages.checking)
+       {formatMessage(messages.checking)}
     </ActionButton>
     }
     </>
