@@ -6,7 +6,8 @@ import * as module from './courseCard';
 import * as simpleSelectors from './simpleSelectors';
 console.log(simpleSelectors);
 const { cardSimpleSelectors, mkCardSelector } = simpleSelectors;
-console.log(simpleSelectors);
+console.log(simpleSelectors, "simpleSelectors");
+console.log(mkCardSelector, "mkCardSelector");
 
 const today = new Date();
 const dateSixMonthsFromNow = new Date();
