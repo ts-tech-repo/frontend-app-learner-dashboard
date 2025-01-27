@@ -10,11 +10,11 @@ import ActionButton from './ActionButton';
 import messages from './messages';
 
 export const ResumeButton = ({ cardId }) => {
+  console.log(window.ptcSubmitted,"global variable")
   const { formatMessage } = useIntl();
   const { resumeUrl } = reduxHooks.useCardCourseRunData(cardId);
   const execEdTrackingParam = reduxHooks.useCardExecEdTrackingParam(cardId);
   const { disableResumeCourse } = useActionDisabledState(cardId);
-  const ptcSubmitted = false;
 
   const handleClick = reduxHooks.useTrackCourseEvent(
     track.course.enterCourseClicked,
@@ -23,7 +23,7 @@ export const ResumeButton = ({ cardId }) => {
   );
   return (
     <>
-    {ptcSubmitted ? 
+    {window.ptcSubmitted ? 
     <ActionButton
       disabled={disableResumeCourse}
       as="a"

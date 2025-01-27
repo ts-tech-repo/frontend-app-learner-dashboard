@@ -29,6 +29,7 @@ export const useInitializeApp = () => {
     requestKey: RequestKeys.initialize,
     onSuccess: ({ data }) => {
       console.log('App initialization successful:', data);
+      window.ptcSubmitted = data.ptcSubmitted; 
       loadData(data);
     },
   });
