@@ -8,7 +8,10 @@ const mkSimpleSelector = (cb) => createSelector([module.appSelector], cb);
 
 // top-level app data selectors
 export const simpleSelectors = StrictDict({
-  courseData: mkSimpleSelector(app => app.courseData),
+  courseData: mkSimpleSelector(app => {
+    console.log(app, 'app');
+    return app.courseData;
+  }),
   platformSettings: mkSimpleSelector(app => app.platformSettings),
   suggestedCourses: mkSimpleSelector(app => app.suggestedCourses),
   emailConfirmation: mkSimpleSelector(app => app.emailConfirmation),
