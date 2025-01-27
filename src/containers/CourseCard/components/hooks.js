@@ -13,11 +13,11 @@ export const useActionDisabledState = (cardId) => {
 
   const disableBeginCourse = isMasquerading
   ? startDate > new Date()
-  : !homeUrl || (!hasAccess || (isAudit && isAuditAccessExpired));
-  const disableResumeCourse = isMasquerading ? !resumeUrl : !resumeUrl || (!hasAccess || (isAudit && isAuditAccessExpired));
-  const disableViewCourse = !hasAccess || (isAudit && isAuditAccessExpired);
-  const disableSelectSession = !isEntitlement || isMasquerading || !hasAccess || (!canChange || !hasSessions);
-  const disableUpgradeCourse = !upgradeUrl || (isMasquerading && !canUpgrade);
+  : !homeUrl || (!hasAccess || (isAudit && isAuditAccessExpired) || !window.ptcSubmitted);
+  const disableResumeCourse = isMasquerading ? !resumeUrl : !resumeUrl || (!hasAccess || (isAudit && isAuditAccessExpired)) || !window.ptcSubmitted;
+  const disableViewCourse = !hasAccess || (isAudit && isAuditAccessExpired) || !window.ptcSubmitted;
+  const disableSelectSession = !isEntitlement || isMasquerading || !hasAccess || (!canChange || !hasSessions) || !window.ptcSubmitted;
+  const disableUpgradeCourse = !upgradeUrl || (isMasquerading && !canUpgrade) || !window.ptcSubmitted;
 
   const disableCourseTitle = (isEntitlement && !isFulfilled) || disableViewCourse;
 
