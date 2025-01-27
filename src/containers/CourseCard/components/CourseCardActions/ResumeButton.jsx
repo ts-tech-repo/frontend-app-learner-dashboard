@@ -28,7 +28,7 @@ export const ResumeButton = ({ cardId }) => {
       href="#"
       onClick={handleClick}
     >
-      ptcPop ? formatMessage(messages.checking) : formatMessage(messages.resume)
+      {ptcPop ? formatMessage(messages.checking) : formatMessage(messages.resume)}
     </ActionButton>
   );
 };
