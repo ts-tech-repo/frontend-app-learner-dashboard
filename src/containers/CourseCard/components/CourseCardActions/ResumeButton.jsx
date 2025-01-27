@@ -14,7 +14,7 @@ export const ResumeButton = ({ cardId }) => {
   const { resumeUrl } = reduxHooks.useCardCourseRunData(cardId);
   const execEdTrackingParam = reduxHooks.useCardExecEdTrackingParam(cardId);
   const { disableResumeCourse } = useActionDisabledState(cardId);
-  const ptcPop = false;
+  const ptcSubmitted = false;
 
   const handleClick = reduxHooks.useTrackCourseEvent(
     track.course.enterCourseClicked,
@@ -23,7 +23,7 @@ export const ResumeButton = ({ cardId }) => {
   );
   return (
     <>
-    {ptcPop ? 
+    {ptcSubmitted ? 
     <ActionButton
       disabled={disableResumeCourse}
       as="a"
@@ -36,7 +36,7 @@ export const ResumeButton = ({ cardId }) => {
      <ActionButton
       disabled={disableResumeCourse}
       as="a"
-      href=""
+      href="#"
     >
        {formatMessage(messages.checking)}
     </ActionButton>
