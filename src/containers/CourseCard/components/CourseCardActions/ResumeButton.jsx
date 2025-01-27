@@ -10,7 +10,6 @@ import ActionButton from './ActionButton';
 import messages from './messages';
 
 export const ResumeButton = ({ cardId }) => {
-  console.log(window.ptcSubmitted,"global variable")
   const { formatMessage } = useIntl();
   const { resumeUrl } = reduxHooks.useCardCourseRunData(cardId);
   const execEdTrackingParam = reduxHooks.useCardExecEdTrackingParam(cardId);
