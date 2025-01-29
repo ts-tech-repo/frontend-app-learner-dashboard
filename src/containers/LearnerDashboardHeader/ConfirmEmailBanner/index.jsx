@@ -5,7 +5,6 @@ import {
   Image,
   MarketingModal,
   ModalDialog,
-  PageBanner,
 } from '@edx/paragon';
 import { useIntl } from '@edx/frontend-platform/i18n';
 
@@ -18,10 +17,7 @@ export const ConfirmEmailBanner = () => {
   const {
     isNeeded,
     showConfirmModal,
-    showPageBanner,
-    closePageBanner,
     closeConfirmModal,
-    openConfirmModalButtonClick,
     userConfirmEmailButtonClick,
   } = useConfirmEmailBannerData();
   const { formatMessage } = useIntl();
@@ -30,7 +26,6 @@ export const ConfirmEmailBanner = () => {
 
   return (
     <>
-      
       <MarketingModal
         title=""
         isOpen={showConfirmModal}
