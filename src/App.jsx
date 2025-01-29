@@ -132,8 +132,17 @@ export const App = () => {
             handbookLink.textContent = "Student Handbook";
             footerDiv.appendChild(handbookLink);
           }
+
+          if(siteName === "eMBA"){
+            const programGuidelines = document.createElement("a");
+            programGuidelines.href = "https://static.talentsprint.com/extras/EMBA_Program_guidelines.pdf";
+            programGuidelines.target = "_blank";
+            programGuidelines.className = "program-guidelines";
+            programGuidelines.textContent = "Program Guidelines";
+            footerDiv.appendChild(programGuidelines);
+          }
     
-          if (support && (siteName === "IIT Kanpur eMasters Degree" || siteName === "CMU")) {
+          if (support && (siteName === "IIT Kanpur eMasters Degree" || siteName === "CMU" || siteName === "eMBA")) {
             const supportDiv = document.createElement("div");
             supportDiv.className = "support-mail";
             supportDiv.innerHTML = `
