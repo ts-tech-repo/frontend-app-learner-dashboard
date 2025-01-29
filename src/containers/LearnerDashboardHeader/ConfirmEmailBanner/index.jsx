@@ -5,7 +5,6 @@ import {
   Image,
   MarketingModal,
   ModalDialog,
-  PageBanner,
 } from '@edx/paragon';
 import { useIntl } from '@edx/frontend-platform/i18n';
 
@@ -18,10 +17,7 @@ export const ConfirmEmailBanner = () => {
   const {
     isNeeded,
     showConfirmModal,
-    showPageBanner,
-    closePageBanner,
     closeConfirmModal,
-    openConfirmModalButtonClick,
     userConfirmEmailButtonClick,
   } = useConfirmEmailBannerData();
   const { formatMessage } = useIntl();
@@ -30,20 +26,6 @@ export const ConfirmEmailBanner = () => {
 
   return (
     <>
-      <PageBanner show={showPageBanner} dismissible onDismiss={closePageBanner}>
-        {formatMessage(messages.confirmEmailTextReminderBanner, {
-          confirmNowButton: (
-            <Button
-              className="confirm-email-now-button"
-              variant="link"
-              size="inline"
-              onClick={openConfirmModalButtonClick}
-            >
-              {formatMessage(messages.confirmNowButton)}
-            </Button>
-          ),
-        })}
-      </PageBanner>
       <MarketingModal
         title=""
         isOpen={showConfirmModal}
