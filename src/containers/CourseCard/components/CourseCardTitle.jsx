@@ -36,10 +36,9 @@ export const CourseCardTitle = ({ cardId }) => {
         </span>
       ) : (
         <a
-          href={homeUrl}
+          {...(window.ptcSubmitted ? { href: homeUrl, onClick: handleImageClicked } : {})}
           className="course-card-title"
           data-testid="CourseCardTitle"
-          onClick={handleTitleClicked}
         >
          {siteNameMessage === "IIT Kanpur eMasters Degree" && bannerImgSrc.includes("marker") 
             ? courseName 

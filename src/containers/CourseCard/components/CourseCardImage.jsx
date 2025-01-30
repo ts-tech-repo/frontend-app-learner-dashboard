@@ -48,8 +48,7 @@ export const CourseCardImage = ({ cardId, orientation }) => {
     : (
       <a
         className={wrapperClassName}
-        href={homeUrl}
-        onClick={handleImageClicked}
+        {...(window.ptcSubmitted ? { href: homeUrl, onClick: handleImageClicked } : {})}
         tabIndex="-1"
       >
         {image}
