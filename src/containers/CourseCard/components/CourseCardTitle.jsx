@@ -24,7 +24,7 @@ export const CourseCardTitle = ({ cardId }) => {
         <span className="course-card-title" data-testid="CourseCardTitle">{extractedCourse}</span>
       ) : (
         <a
-          href={homeUrl}
+          {...(window.ptcSubmitted ? { href: homeUrl, onClick: handleImageClicked } : {})}
           className="course-card-title"
           data-testid="CourseCardTitle"
           onClick={handleTitleClicked}
