@@ -1,32 +1,35 @@
-import React, { useEffect } from "react";
-import { Helmet } from "react-helmet";
+import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
-import { useIntl } from "@edx/frontend-platform/i18n";
-import { logError } from "@edx/frontend-platform/logging";
-import { initializeHotjar } from "@edx/frontend-enterprise-hotjar";
+import { useIntl } from '@edx/frontend-platform/i18n';
+import { logError } from '@edx/frontend-platform/logging';
+import { initializeHotjar } from '@edx/frontend-enterprise-hotjar';
 
-import { ErrorPage, AppContext } from "@edx/frontend-platform/react";
-import Footer from "@edx/frontend-component-footer";
-import { Alert } from "@edx/paragon";
+import { ErrorPage, AppContext } from '@edx/frontend-platform/react';
+import Footer from '@edx/frontend-component-footer';
+import { Alert } from '@edx/paragon';
 
-import { RequestKeys } from "data/constants/requests";
-import store from "data/store";
-import { selectors, actions } from "data/redux";
-import { reduxHooks } from "hooks";
-import Dashboard from "containers/Dashboard";
-import ZendeskFab from "components/ZendeskFab";
-import { ExperimentProvider } from "ExperimentContext";
+import { RequestKeys } from 'data/constants/requests';
+import store from 'data/store';
+import {
+  selectors,
+  actions,
+} from 'data/redux';
+import { reduxHooks } from 'hooks';
+import Dashboard from 'containers/Dashboard';
+import ZendeskFab from 'components/ZendeskFab';
+import { ExperimentProvider } from 'ExperimentContext';
 
-import track from "tracking";
+import track from 'tracking';
 
-import fakeData from "data/services/lms/fakeData/courses";
+import fakeData from 'data/services/lms/fakeData/courses';
 
-import AppWrapper from "containers/WidgetContainers/AppWrapper";
-import LearnerDashboardHeader from "containers/LearnerDashboardHeader";
+import AppWrapper from 'containers/WidgetContainers/AppWrapper';
+import LearnerDashboardHeader from 'containers/LearnerDashboardHeader';
 
-import { getConfig } from "@edx/frontend-platform";
-import messages from "./messages";
-import "./App.scss";
+import { getConfig } from '@edx/frontend-platform';
+import messages from './messages';
+import './App.scss';
 
 export const App = () => {
   const { authenticatedUser } = React.useContext(AppContext);
@@ -38,7 +41,7 @@ export const App = () => {
   const studentHandbook = getConfig().STUDENT_HANDBOOK;
   const support = getConfig().INFO_EMAIL;
   const siteName = getConfig().SITE_NAME;
-
+  
   const isFailed = {
     initialize: reduxHooks.useRequestIsFailed(RequestKeys.initialize),
     refreshList: reduxHooks.useRequestIsFailed(RequestKeys.refreshList),
@@ -50,13 +53,10 @@ export const App = () => {
   const optimizelyScript = () => {
     if (getConfig().OPTIMIZELY_URL) {
       return <script src={getConfig().OPTIMIZELY_URL} />;
-    }
-    if (getConfig().OPTIMIZELY_PROJECT_ID) {
+    } if (getConfig().OPTIMIZELY_PROJECT_ID) {
       return (
         <script
-          src={`${getConfig().MARKETING_SITE_BASE_URL}/optimizelyjs/${
-            getConfig().OPTIMIZELY_PROJECT_ID
-          }.js`}
+          src={`${getConfig().MARKETING_SITE_BASE_URL}/optimizelyjs/${getConfig().OPTIMIZELY_PROJECT_ID}.js`}
         />
       );
     }
@@ -64,17 +64,17 @@ export const App = () => {
   };
 
   React.useEffect(() => {
-    if (
-      authenticatedUser?.administrator ||
-      getConfig().NODE_ENV === "development"
-    ) {
+    if (authenticatedUser?.administrator || getConfig().NODE_ENV === 'development') {
       window.loadEmptyData = () => {
         loadData({ ...fakeData.globalData, courses: [] });
       };
       window.loadMockData = () => {
         loadData({
           ...fakeData.globalData,
-          courses: [...fakeData.courseRunData, ...fakeData.entitlementData],
+          courses: [
+            ...fakeData.courseRunData,
+            ...fakeData.entitlementData,
+          ],
         });
       };
       window.store = store;
@@ -132,17 +132,8 @@ export const App = () => {
             handbookLink.textContent = "Student Handbook";
             footerDiv.appendChild(handbookLink);
           }
-
-          if(siteName === "eMBA"){
-            const programGuidelines = document.createElement("a");
-            programGuidelines.href = "https://static.talentsprint.com/extras/EMBA_Program_guidelines.pdf";
-            programGuidelines.target = "_blank";
-            programGuidelines.className = "program-guidelines";
-            programGuidelines.textContent = "Program Guidelines";
-            footerDiv.appendChild(programGuidelines);
-          }
     
-          if (support && (siteName === "IIT Kanpur eMasters Degree" || siteName === "CMU" || siteName === "eMBA")) {
+          if (support && (siteName === "IIT Kanpur eMasters Degree" || siteName === "CMU")) {
             const supportDiv = document.createElement("div");
             supportDiv.className = "support-mail";
             supportDiv.innerHTML = `
