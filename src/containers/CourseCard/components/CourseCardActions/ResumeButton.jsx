@@ -21,14 +21,26 @@ export const ResumeButton = ({ cardId }) => {
     resumeUrl + execEdTrackingParam,
   );
   return (
+    <>
+    {window.ptcSubmitted ? 
     <ActionButton
       disabled={disableResumeCourse}
       as="a"
       href="#"
       onClick={handleClick}
     >
-      {formatMessage(messages.resume)}
+    { formatMessage(messages.resume)}
     </ActionButton>
+     :
+     <ActionButton
+      disabled={disableResumeCourse}
+      as="a"
+      href="#"
+    >
+       {formatMessage(messages.checking)}
+    </ActionButton>
+    }
+    </>
   );
 };
 ResumeButton.propTypes = {

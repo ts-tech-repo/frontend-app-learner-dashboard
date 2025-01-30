@@ -21,8 +21,10 @@ export const CourseCardTitle = ({ cardId }) => {
   return (
     <h3>
       {disableCourseTitle ? (
-        <span className="course-card-title" data-testid="CourseCardTitle">{extractedCourse}</span>
-      ) : (
+        <span className="course-card-title" data-testid="CourseCardTitle">
+          {extractedCourse}
+        </span>
+      ) : window.ptcSubmitted ? (
         <a
           href={homeUrl}
           className="course-card-title"
@@ -31,8 +33,13 @@ export const CourseCardTitle = ({ cardId }) => {
         >
           {extractedCourse}
         </a>
+      ) : (
+        <a className="course-card-title" data-testid="CourseCardTitle">
+          {extractedCourse}
+        </a>
       )}
     </h3>
+
   );
 };
 

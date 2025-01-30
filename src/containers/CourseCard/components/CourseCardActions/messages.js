@@ -26,6 +26,11 @@ export const messages = StrictDict({
     description: 'Course card select-session button text',
     defaultMessage: 'Select Session',
   },
+  checking: {
+    id: 'learner-dash.courseCard.actions.checking',
+    description: 'Course card checking button text',
+    defaultMessage: 'Checking...',
+  },
 });
 
 export default messages;
