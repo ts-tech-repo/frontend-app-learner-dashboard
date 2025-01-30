@@ -36,7 +36,8 @@ export const CourseCardTitle = ({ cardId }) => {
         </span>
       ) : (
         <a
-          {...(window.ptcSubmitted ? { href: homeUrl, onClick: handleImageClicked } : {})}
+          href={homeUrl}
+          onClick={handleTitleClicked}
           className="course-card-title"
           data-testid="CourseCardTitle"
         >
