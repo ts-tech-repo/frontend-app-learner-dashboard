@@ -43,18 +43,23 @@ export const CourseCardImage = ({ cardId, orientation }) => {
       }
     </>
   );
-  return disableCourseTitle
-    ? (<div className={wrapperClassName}>{image}</div>)
-    : (
-      <a
-        className={wrapperClassName}
-        href={homeUrl}
-        onClick={handleImageClicked}
-        tabIndex="-1"
-      >
-        {image}
-      </a>
-    );
+  return {disableCourseTitle ? (
+    <div className={wrapperClassName}>{image}</div>
+  ) : window.ptcSubmitted ? (
+    <a
+      className={wrapperClassName}
+      href={homeUrl}
+      onClick={handleImageClicked}
+      tabIndex="-1"
+    >
+      {image}
+    </a>
+  ) : (
+    <a className={wrapperClassName} tabIndex="-1">
+      {image}
+    </a>
+  )}
+  
 };
 CourseCardImage.propTypes = {
   cardId: PropTypes.string.isRequired,
