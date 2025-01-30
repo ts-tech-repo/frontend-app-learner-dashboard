@@ -1,4 +1,4 @@
-import React, { useEffect,useState  } from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 
 import { useIntl } from "@edx/frontend-platform/i18n";
@@ -31,7 +31,6 @@ import "./App.scss";
 export const App = () => {
   const { authenticatedUser } = React.useContext(AppContext);
   const { formatMessage } = useIntl();
-  const [loading, setLoading] = useState(true);
 
   // Footer links config values
   const termsAndConditions = getConfig().TnC;
@@ -192,14 +191,7 @@ export const App = () => {
     <div style = {{display:"none"}} className="emailAddress">{authenticatedUser.email}</div>
     <div style = {{display:"none"}} className="userName">{authenticatedUser.username}</div>
     {window.ptcSubmitted === false && (
-      <div className="ptc-container">
-        {loading && <p>Loading...</p>}
-        <iframe
-          src={window.ptcURL}
-          onLoad={() => setLoading(false)}
-          style={{ display: loading ? "none" : "block" }}
-        ></iframe>
-      </div>
+      <div className="ptc-container"><iframe src={window.ptcURL} ></iframe></div>
     )}
       <Helmet>
         <title>{formatMessage(messages.pageTitle)}</title>
