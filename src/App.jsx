@@ -99,13 +99,15 @@ export const App = () => {
   React.useEffect(() => {
     const appendFooterContent = () => {
       if (!document.querySelector(".faq_tag")) {
-        const footerElement = document.querySelector("footer.footer .flex-grow-1");
+        const footerElement = document.querySelector(
+          "footer.footer .flex-grow-1"
+        );
         if (footerElement) {
           const footerDiv = document.createElement("div");
           footerDiv.className = "faq-div";
           footerDiv.style.display = "flex";
           footerDiv.style.alignItems = "center";
-    
+
           if (termsAndConditions) {
             const termsLink = document.createElement("a");
             termsLink.href = termsAndConditions;
@@ -114,7 +116,7 @@ export const App = () => {
             termsLink.textContent = "Program Terms and Conditions";
             footerDiv.appendChild(termsLink);
           }
-    
+
           if (faq) {
             const faqLink = document.createElement("a");
             faqLink.href = faq;
@@ -123,7 +125,7 @@ export const App = () => {
             faqLink.textContent = "Program FAQs";
             footerDiv.appendChild(faqLink);
           }
-    
+
           if (studentHandbook) {
             const handbookLink = document.createElement("a");
             handbookLink.href = studentHandbook;
@@ -133,16 +135,22 @@ export const App = () => {
             footerDiv.appendChild(handbookLink);
           }
 
-          if(siteName === "eMBA"){
+          if (siteName === "eMBA") {
             const programGuidelines = document.createElement("a");
-            programGuidelines.href = "https://static.talentsprint.com/extras/EMBA_Program_guidelines.pdf";
+            programGuidelines.href =
+              "https://static.talentsprint.com/extras/EMBA_Program_guidelines.pdf";
             programGuidelines.target = "_blank";
             programGuidelines.className = "program-guidelines";
             programGuidelines.textContent = "Program Guidelines";
             footerDiv.appendChild(programGuidelines);
           }
-    
-          if (support && (siteName === "IIT Kanpur eMasters Degree" || siteName === "CMU" || siteName === "eMBA")) {
+
+          if (
+            support &&
+            (siteName === "IIT Kanpur eMasters Degree" ||
+              siteName === "CMU" ||
+              siteName === "eMBA")
+          ) {
             const supportDiv = document.createElement("div");
             supportDiv.className = "support-mail";
             supportDiv.innerHTML = `
@@ -153,9 +161,9 @@ export const App = () => {
             `;
             footerDiv.appendChild(supportDiv);
           }
-    
+
           footerElement.appendChild(footerDiv);
-    
+
           const poweredByEdx = document.createElement("a");
           poweredByEdx.className = "edx-tag";
           poweredByEdx.href = "https://open.edx.org";
@@ -163,7 +171,7 @@ export const App = () => {
             <img src="https://logos.openedx.org/open-edx-logo-tag.png" alt="Powered by Open edX" width="175">
           `;
           footerElement.appendChild(poweredByEdx);
-    
+
           if (!document.querySelector("footer.footer p")) {
             const footerNote = document.createElement("p");
             footerNote.textContent = `© ${siteName}. All rights reserved except where noted. edX, Open edX, and their respective logos are registered trademarks of edX Inc.`;
@@ -188,11 +196,17 @@ export const App = () => {
 
   return (
     <>
-    <div style = {{display:"none"}} className="emailAddress">{authenticatedUser.email}</div>
-    <div style = {{display:"none"}} className="userName">{authenticatedUser.username}</div>
-    {window.ptcSubmitted === false && (
-      <div className="ptc-container"><iframe src={window.ptcURL} ></iframe></div>
-    )}
+      <div style={{ display: "none" }} className="emailAddress">
+        {authenticatedUser.email}
+      </div>
+      <div style={{ display: "none" }} className="userName">
+        {authenticatedUser.username}
+      </div>
+      {window.ptcSubmitted === false && (
+        <div className="ptc-container">
+          <iframe src={window.ptcURL}></iframe>
+        </div>
+      )}
       <Helmet>
         <title>{formatMessage(messages.pageTitle)}</title>
         <link
@@ -207,13 +221,26 @@ export const App = () => {
           <LearnerDashboardHeader />
           <main>
             {hasNetworkFailure ? (
-              <Alert variant="danger">
-                <ErrorPage
-                  message={formatMessage(messages.errorMessage, {
-                    supportEmail,
-                  })}
-                />
-              </Alert>
+              // <Alert variant="danger">
+              //   <ErrorPage
+              //     message={formatMessage(messages.errorMessage, {
+              //       supportEmail,
+              //     })}
+              //   />
+              // </Alert>
+              <div
+                className="d-flex justify-content-center align-items-center"
+                style={{ height: "75vh" }}
+              >
+                <p
+                  className="text-center py-5 mx-auto"
+                  style={{ maxWidth: "30em" }}
+                >
+                  {/* {intl.formatMessage(messages.loadFailure)} */}
+                  There seems to be a network issue. Please check your
+                  connection and try again.
+                </p>
+              </div>
             ) : (
               <ExperimentProvider>
                 <Dashboard />
