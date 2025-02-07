@@ -41,7 +41,7 @@ export const App = () => {
   const studentHandbook = getConfig().STUDENT_HANDBOOK;
   const support = getConfig().INFO_EMAIL;
   const siteName = getConfig().SITE_NAME;
-  
+
   const isFailed = {
     initialize: reduxHooks.useRequestIsFailed(RequestKeys.initialize),
     refreshList: reduxHooks.useRequestIsFailed(RequestKeys.refreshList),
@@ -98,14 +98,14 @@ export const App = () => {
   // footer content start
   React.useEffect(() => {
     const appendFooterContent = () => {
-        if (!document.querySelector('.faq_tag')) {
-          const footerElement = document.querySelector('footer.footer .flex-grow-1');
-          if (footerElement) {
-            const studentHandbookLink = siteName === "IIT Kanpur eMasters Degree" 
-              ? `<a class="faq_tag" target="_blank" href="${faq}">Program FAQs</a> <a href="${studentHandbook}" target="_blank" class="student-handbook">Student Handbook</a> `
-              : '';
+      if (!document.querySelector('.faq_tag')) {
+        const footerElement = document.querySelector('footer.footer .flex-grow-1');
+        if (footerElement) {
+          const studentHandbookLink = siteName === "IIT Kanpur eMasters Degree"
+            ? `<a class="faq_tag" target="_blank" href="${faq}">Program FAQs</a> <a href="${studentHandbook}" target="_blank" class="student-handbook">Student Handbook</a> `
+            : '';
 
-            footerElement.innerHTML += `
+          footerElement.innerHTML += `
               <div class="faq-div">
                 <a target="_blank" class='conditions' href="${termsAndConditions}">Program Terms and Conditions</a>
                 ${studentHandbookLink}
@@ -118,17 +118,17 @@ export const App = () => {
                 <img src="https://logos.openedx.org/open-edx-logo-tag.png" alt="Powered by Open edX" width="175">
               </a>
             `;
-            document.querySelector('footer.footer').innerHTML += `
+          document.querySelector('footer.footer').innerHTML += `
               <p>© ${siteName}. All rights reserved except where noted. edX, Open edX, and their respective logos are registered trademarks of edX Inc.</p>
             `;
-          }
         }
+      }
     };
 
     const intervalId = setInterval(() => {
       if ($('footer.footer .flex-grow-1').length && $('footer.footer .flex-grow-1').is(':empty')) {
         appendFooterContent();
-        clearInterval(intervalId); 
+        clearInterval(intervalId);
       }
     }, 500);
     return () => clearInterval(intervalId);
@@ -137,8 +137,8 @@ export const App = () => {
 
   return (
     <>
-     <div style = {{display:"none"}} className="emailAddress">{authenticatedUser.email}</div>
-     <div style = {{display:"none"}} className="userName">{authenticatedUser.username}</div>
+      <div style={{ display: "none" }} className="emailAddress">{authenticatedUser.email}</div>
+      <div style={{ display: "none" }} className="userName">{authenticatedUser.username}</div>
       <Helmet>
         <title>{formatMessage(messages.pageTitle)}</title>
         <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
@@ -150,9 +150,22 @@ export const App = () => {
           <main>
             {hasNetworkFailure
               ? (
-                <Alert variant="danger">
-                  <ErrorPage message={formatMessage(messages.errorMessage, { supportEmail })} />
-                </Alert>
+                // <Alert variant="danger">
+                //   <ErrorPage message={formatMessage(messages.errorMessage, { supportEmail })} />
+                // </Alert>
+                <div
+                  className="d-flex justify-content-center align-items-center"
+                  style={{ height: "75vh" }}
+                >
+                  <p
+                    className="text-center py-5 mx-auto"
+                    style={{ maxWidth: "30em" }}
+                  >
+                    {/* {intl.formatMessage(messages.loadFailure)} */}
+                    There seems to be a network issue. Please check your
+                    connection and try again.
+                  </p>
+                </div>
               ) : (
                 <ExperimentProvider>
                   <Dashboard />
